@@ -3,7 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package designPatterns;
+
+import java.awt.Component;
+import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import javax.swing.*;
 
 /**
  *
@@ -18,12 +27,33 @@ public class HelloWorld {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    Scanner reader = new Scanner(System.in);
-        System.out.println("Enter a number");
-        int num = Integer.parseInt(reader.nextLine());
-        double circumference = 2*Math.PI *num;
-        System.out.println(circumference);
+   // Create a frame
+testGUI MainUI = new testGUI();
+MainUI.setVisible(true);
+//q.run();
+     
+// Add a component with a custom paint method
+ 
+//JPanel p = new JPanel(); 
+//Frame frame = new Frame();
+CustomPaintComponent c = new CustomPaintComponent();
+//MainUI.add(p);
+
+Canvas can = new Canvas();
+
+MainUI.add(can);
+
+// Display the frame
+ 
+int frameWidth = 300;
+int frameHeight = 300;
+ 
+//frame.setSize(frameWidth, frameHeight);
+ 
+//frame.setVisible(true);
+        
         
     }
+    
     
 }
