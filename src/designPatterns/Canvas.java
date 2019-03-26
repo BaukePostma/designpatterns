@@ -7,24 +7,35 @@ package designPatterns;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
+import java.util.ArrayList;
         
 /**
  *
  * @author Bauke
  */
 public class Canvas extends JPanel{
+        ArrayList<baseShape> shapeList = new ArrayList();
     
-    // Test main, remove this
-  public static void main(String[] args) {}{
     
-}
+    public Canvas(){
+       Rectangle firstRect = new Rectangle();
+       shapeList.add(firstRect);
+    }
 
+    
+    
+
+
+ 
     public void paintComponent(Graphics g){
     super.paintComponent(g);
-    
-    g.drawString("a",10,20);
+      
+        for (int i = 0; i < shapeList.size(); i++) {
+         // Draw all the elements in shapeVector
+         shapeList.get(i).Draw(g);
+        }
+   g.drawString("a",10,20);
     }
-    
 }
 
 
