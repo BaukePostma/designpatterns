@@ -53,5 +53,14 @@ class MyPanel extends JPanel {
 
         // Draw Text
         g.drawString("This is my custom Panel!",10,20);
+        drawCircle(g,50,100,50);
     }  
+    public static void drawCircle(Graphics g, int x, int y, int radius) {
+
+  int diameter = radius * 2;
+
+  //shift x and y by the radius of the circle in order to correctly center it
+  g.fillOval(x - radius, y - radius, diameter, diameter); 
+
+}
 }

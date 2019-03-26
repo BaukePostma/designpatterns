@@ -26,34 +26,11 @@ public class HelloWorld {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-   // Create a frame
-testGUI MainUI = new testGUI();
-MainUI.setVisible(true);
-//q.run();
-     
-// Add a component with a custom paint method
- 
-//JPanel p = new JPanel(); 
-//Frame frame = new Frame();
-CustomPaintComponent c = new CustomPaintComponent();
-//MainUI.add(p);
-
-Canvas can = new Canvas();
-
-MainUI.add(can);
-
-// Display the frame
- 
-int frameWidth = 300;
-int frameHeight = 300;
- 
-//frame.setSize(frameWidth, frameHeight);
- 
-//frame.setVisible(true);
         
-        
-    }
-    
-    
+    int frameWidth = 300;
+    int frameHeight = 300;
+    // Create the GUI
+    GUI MainUI = new GUI(frameWidth,frameHeight);
+   
+    }  
 }
