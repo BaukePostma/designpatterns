@@ -20,7 +20,7 @@ import javax.swing.*;
  */
 import java.util.Scanner;
 
-public class HelloWorld {
+public class Main {
 
     /**
      * @param args the command line arguments

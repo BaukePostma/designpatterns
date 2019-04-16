@@ -4,56 +4,72 @@
  * and open the template in the editor.
  */
 package designPatterns;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
+
 /**
  *
  * @author Bauke
  */
 public class GUI {
-    public GUI(int height,int width){
-      // Create the main frame
-           JFrame frame = new JFrame("PaintPlus");
-           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-           frame.setSize(height,width);
-           //Create the top menu
-          JMenuBar  mb = new JMenuBar();
-          JMenu m1 = new JMenu("Circle");
-          JMenu m2 = new JMenu("Rectangle");
-          JMenu m3 = new JMenu("Select");
-          JMenu m4 = new JMenu("Group");
-          JMenuItem action = new JMenuItem("ACTION");
-          mb.add(m1);
-          mb.add(m2);
-          mb.add(m3);
-          mb.add(m4);
+
+    public GUI(int height, int width) {
+        // Create the main frame
+        JFrame frame = new JFrame("PaintPlus");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(height, width);
+        //Create the top menu
+        JMenuBar mb = new JMenuBar();
+        JMenu m1 = new JMenu("Circle");
+        JMenu m2 = new JMenu("Rectangle");
+        JMenu m3 = new JMenu("Select");
+        JMenu m4 = new JMenu("Group");
+        JMenuItem action1 = new JMenuItem("Create");
+        JMenuItem action2 = new JMenuItem("Create");
+        JMenuItem action3 = new JMenuItem("Select");
+        JMenuItem action4 = new JMenuItem("Group");
+        mb.add(m1);
+        mb.add(m2);
+        mb.add(m3);
+        mb.add(m4);
+
+        m1.add(action1);
+        m2.add(action2);
+        m3.add(action3);
+        m4.add(action4);
+
+    //    Actionlistener q = new Actionlistener(){
+            
+      //  }
         //  m1.add(action);
-          // Create the listeners or the menu
-          m1.addMenuListener(new SampleMenuListener());
-          
-          action.addActionListener(new ActionListener() {
+        //  m1.add(action);
+        // Create the listeners or the menu
+        //m1.addMenuListener(new SampleMenuListener());
+        action1.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Action performed");
             }
         });
-          // Create the canvas
-          Canvas mainCanvas = new Canvas();
-          
-          // Code to add sub-elements to JMenu items. Leaving this here for reference
-          //  JMenuItem m11 = new JMenuItem("Open");
-          //    m1.add(m11);
-          // Add it to the top of our JFrame using a north Borderlayout
-          frame.getContentPane().add(BorderLayout.NORTH,mb);
-          frame.getContentPane().add(BorderLayout.CENTER,mainCanvas);
-          frame.setVisible(true);
+        // Create the canvas
+        Canvas mainCanvas = new Canvas();
+
+        // Code to add sub-elements to JMenu items. Leaving this here for reference
+        //  JMenuItem m11 = new JMenuItem("Open");
+        //    m1.add(m11);
+        // Add it to the top of our JFrame using a north Borderlayout
+        frame.getContentPane().add(BorderLayout.NORTH, mb);
+        frame.getContentPane().add(BorderLayout.CENTER, mainCanvas);
+        frame.setVisible(true);
     }
-     
+
 }
 // TEST TES TEST 
+
 class SampleMenuListener implements MenuListener {
 
     @Override

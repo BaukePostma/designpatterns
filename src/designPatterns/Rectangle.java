@@ -14,10 +14,7 @@ import javax.swing.JPanel;
  */
 public class Rectangle implements baseShape{
 
-int x= 50;
-int y = 50;
-int width =50;
-int height = 50;
+
 
     @Override
     public void Draw(Graphics g) {
