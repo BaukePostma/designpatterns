@@ -13,18 +13,27 @@ import javax.swing.JPanel;
  * @author Bauke
  */
 public class Rectangle implements baseShape{
-
-
+    
+    int x= 50;
+    int y = 50;
+    int width =50;
+    int height = 50;
+    
+    public Rectangle(int x,int y, int width,int height){
+        this.x =x;
+        this.y =y;
+        this.width=width;
+        this.height =height;
+        
+    }
+  
 
     @Override
     public void Draw(Graphics g) {
            //       super.paintComponent(g);
           // Retrieve the graphics context; this object is used to paint shapes
          Graphics2D g2d = (Graphics2D)g;
-  
          g2d.drawRect(x, y, width, height);
-        System.out.print("IT LIVES");
-
     }
     public void paintComponent(Graphics g){
 

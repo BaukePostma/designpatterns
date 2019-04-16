@@ -15,23 +15,20 @@ import java.util.ArrayList;
  */
 public class Canvas extends JPanel{
         ArrayList<baseShape> shapeList = new ArrayList();
-    enum state{
-        RECTANGLE,
-        CIRCLE,
-        MOVE,
-        GROUP
-    }  
+   private String state = "Rectangle";
+   
+   public void setState(String newname){
+     this.state = newname;
+   }
+   public String getState(){
+       return state;
+   }
     public Canvas(){
-      //  state state = state.CIRCLE;
-       Rectangle firstRect = new Rectangle();
+       Rectangle firstRect = new Rectangle(50,50,50,50);
        shapeList.add(firstRect);
     }
 
-    
-    
-
-
- 
+   
     public void paintComponent(Graphics g){
     super.paintComponent(g);
       

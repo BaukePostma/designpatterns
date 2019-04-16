@@ -13,10 +13,7 @@ import java.awt.Graphics;
  */
 public interface baseShape {
     // TODO add getters setters
-    int x= 50;
-    int y = 50;
-    int width =50;
-    int height = 50;
+
      
         public void Draw(Graphics g) ;
          
