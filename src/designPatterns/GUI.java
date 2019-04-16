@@ -91,7 +91,7 @@ public class GUI {
                 xpos = e.getX();
                 ypos = e.getY();
 
-                System.out.print("Mouse pressed");
+            
                 if (mainCanvas.getState() == "rectangle") {
 //Create a new rectangle
 
@@ -99,6 +99,12 @@ public class GUI {
 
                 } else if (mainCanvas.getState() == "select") {
 
+                    //Loop over every element in the shapelist
+                    for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
+                        if(pointCheck(xpos,ypos,mainCanvas.shapeList.get(i))){
+                            mainCanvas.shapeList.get(i).isSelected=true;
+                        }
+                    }
                 } else {
 
                 }
@@ -109,7 +115,7 @@ public class GUI {
                 mouseDown = false;
                 xend = e.getX();
                 yend = e.getY();
-                System.out.print("Mouse released");
+
 
                 if (mainCanvas.getState() == "rectangle") {
                     //Create a new rectangle
@@ -157,7 +163,20 @@ public class GUI {
         frame.getContentPane().add(BorderLayout.CENTER, mainCanvas);
         frame.setVisible(true);
     }
+ boolean pointCheck(int mouseX,int mouseY,baseShape testshape){
 
+
+if ( mouseX> testshape.x && mouseX< testshape.x+testshape.width &&  
+    mouseY > testshape.y && mouseY < testshape.y+testshape.height) {
+        System.out.println("Selected a shape");
+     return true;
+ 
+ }
+
+ return false;
+ }
+
+   
 }
 // TEST TES TEST 
 

@@ -11,11 +11,18 @@ import java.awt.Graphics;
  *
  * @author Bauke
  */
-public interface baseShape {
+public abstract class baseShape {
+
     // TODO add getters setters
+    int x = 50;
+    int y = 50;
+    int width = 50;
+    int height = 50;
+    boolean isSelected = false;
 
-     
-        public void Draw(Graphics g) ;
-         
-                }
+    public void Draw(Graphics g) {
 
+    }
+;
+
+}

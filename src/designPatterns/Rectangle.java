@@ -12,13 +12,9 @@ import javax.swing.JPanel;
  *
  * @author Bauke
  */
-public class Rectangle implements baseShape{
+public class Rectangle extends baseShape{
     
-    int x= 50;
-    int y = 50;
-    int width =50;
-    int height = 50;
-    
+
     public Rectangle(int x,int y, int width,int height){
         this.x =x;
         this.y =y;
@@ -34,9 +30,7 @@ public class Rectangle implements baseShape{
           // Retrieve the graphics context; this object is used to paint shapes
          Graphics2D g2d = (Graphics2D)g;
          g2d.drawRect(x, y, width, height);
+         
     }
-    public void paintComponent(Graphics g){
 
-             System.out.print("IT DRAWS");
-    }
 }
