@@ -40,7 +40,6 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(height, width);
         //Create the top menu
-
         mb.add(m1);
         mb.add(m2);
         mb.add(m3);
@@ -52,12 +51,9 @@ public class GUI {
         m3.add(action3);
         m4.add(action4);
         m5.add(action5);
-        //    Actionlistener q = new Actionlistener(){
-        //  }
-        //  m1.add(action);
-        //  m1.add(action);
-        // Create the listeners or the menu
-        //m1.addMenuListener(new SampleMenuListener());
+   
+        //Add handlers to the buttons to process events
+        
         action1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -96,22 +92,25 @@ public class GUI {
             }
 
         });
+        // Add a mouselistener to the canvas to listen to click events
         mainCanvas.addMouseListener(new MouseAdapter() {
 
             boolean mouseDown = true;
+            // Store Mousepress values
             int xpos = 0;
             int ypos = 0;
+            
             int xend = 0;
             int yend = 0;
 
             @Override
             public void mousePressed(MouseEvent e) {
                 mouseDown = true;
+                // Get mouse X and Y
                 xpos = e.getX();
                 ypos = e.getY();
 
                 if (mainCanvas.getState() == "rectangle") {
-//Create a new rectangle
 
                 } else if (mainCanvas.getState() == "circle") {
 
@@ -126,7 +125,7 @@ public class GUI {
                     }
                 } else if (mainCanvas.getState() == "drag") {
                     System.out.print("Drag state = true");
-                    startDrag(xpos, ypos);
+                //    startDrag(xpos, ypos);
                     //
                     // Get selected shapes, put them in a list
                     ///  ArrayList<baseShape> shapeList = new ArrayList();
@@ -141,6 +140,8 @@ public class GUI {
                 yend = e.getY();
 
                 if (mainCanvas.getState() == "rectangle") {
+                    
+
                     //Create a new rectangle
                     //    xpos = e.getX();
                     //  ypos = e.getY();
@@ -165,8 +166,8 @@ public class GUI {
                     } else {
                         lowestY = yend;
                     }
-                    Elipse newElip = new Elipse(lowestX, lowestY, width, height);
-                    mainCanvas.shapeList.add(newElip);
+                    Rectangle newRect = new Rectangle(lowestX, lowestY, width, height);
+                    mainCanvas.shapeList.add(newRect);
                     mainCanvas.repaint();
                 } else if (mainCanvas.getState() == "circle") {
                     int width = xend - xpos;
@@ -203,7 +204,9 @@ public class GUI {
                 } else if (mainCanvas.getState() == "select") {
 
                 } else if (mainCanvas.getState() == "drag") {
-                    stopDrag();
+                       int xdiff = xend - xpos;
+                    int ydiff = yend - ypos;
+                    startDrag(xdiff,ydiff);
                 }
 
             }
@@ -236,8 +239,8 @@ public class GUI {
         ArrayList<baseShape> dragged = getSelected();
         for (baseShape shape : dragged) {
             System.out.println("Old " + shape.x);
-            shape.x = x;
-            shape.y = y;
+            shape.x += x;
+            shape.y += y;
             System.out.println("New  " + shape.x);
         }
         mainCanvas.repaint();

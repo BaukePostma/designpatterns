@@ -20,7 +20,7 @@ public class Elipse extends baseShape {
         this.width = width;
         this.height = height;   
     }
-    
+    // Overrride the draw function, geps passed the graphics object, calls the draw function to draw itself
     @Override
     public void Draw(Graphics g) {
         

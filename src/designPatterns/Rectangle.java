@@ -9,7 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Component;
 import javax.swing.JPanel;
 /**
- *
+ * base Rectangle shape
  * @author Bauke
  */
 public class Rectangle extends baseShape{
@@ -23,7 +23,7 @@ public class Rectangle extends baseShape{
         
     }
   
-
+// Overrride the draw function, geps passed the graphics object, calls the draw function to draw itself
     @Override
     public void Draw(Graphics g) {
            //       super.paintComponent(g);
