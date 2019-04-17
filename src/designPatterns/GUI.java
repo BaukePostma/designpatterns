@@ -32,6 +32,7 @@ public class GUI {
     JMenuItem action5 = new JMenuItem("Drag");
 
     boolean isDragging = false;
+
     public GUI(int height, int width) {
         // Create the canvas
 
@@ -60,14 +61,14 @@ public class GUI {
         action1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action1 performed");
+                System.out.print("Create Rectangle Button Clicked\n");
                 mainCanvas.setState("rectangle");
             }
         });
         action2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action2 performed");
+                System.out.print("Create Circle Button Clicked\n");
                 mainCanvas.setState("circle");
             }
         });
@@ -84,16 +85,16 @@ public class GUI {
                 System.out.print("Action4 performed");
                 mainCanvas.setState("group");
             }
-            
+
         });
-            action5.addActionListener(new ActionListener() {
+        action5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Action5 performed");
                 mainCanvas.setState("drag");
-            //    System.out.println(mainCanvas.getState());
+                //    System.out.println(mainCanvas.getState());
             }
-            
+
         });
         mainCanvas.addMouseListener(new MouseAdapter() {
 
@@ -120,12 +121,12 @@ public class GUI {
                     for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
                         if (pointCheck(xpos, ypos, mainCanvas.shapeList.get(i))) {
                             mainCanvas.shapeList.get(i).isSelected = true;
-                            System.out.println("Shape" +i+" is set to " +   mainCanvas.shapeList.get(i).isSelected);
+                            System.out.println("Shape" + i + " is set to " + mainCanvas.shapeList.get(i).isSelected);
                         }
                     }
                 } else if (mainCanvas.getState() == "drag") {
                     System.out.print("Drag state = true");
-                    startDrag(xpos,ypos);
+                    startDrag(xpos, ypos);
                     //
                     // Get selected shapes, put them in a list
                     ///  ArrayList<baseShape> shapeList = new ArrayList();
@@ -164,14 +165,44 @@ public class GUI {
                     } else {
                         lowestY = yend;
                     }
-                    Rectangle newRect = new Rectangle(lowestX, lowestY, width, height);
-                    mainCanvas.shapeList.add(newRect);
+                    Elipse newElip = new Elipse(lowestX, lowestY, width, height);
+                    mainCanvas.shapeList.add(newElip);
                     mainCanvas.repaint();
                 } else if (mainCanvas.getState() == "circle") {
+                    int width = xend - xpos;
+                    int height = yend - ypos;
+                    // Draai width & height om zodat ze altijd positief zijn
 
+                    if (width < 0) {
+                        width = width * -1;
+                    }
+                    if (height < 0) {
+                        height = height * -1;
+                    }
+
+                    int lowestX;
+
+                    if (xpos < xend) {
+                        lowestX = xpos;
+
+                    } else {
+                        lowestX = xend;
+                    }
+
+                    int lowestY;
+
+                    if (ypos < yend) {
+                        lowestY = ypos;
+                    } else {
+                        lowestY = yend;
+                    }
+
+                    Elipse newElip = new Elipse(lowestX, lowestY, width, height);
+                    mainCanvas.shapeList.add(newElip);
+                    mainCanvas.repaint();
                 } else if (mainCanvas.getState() == "select") {
 
-                } else if (mainCanvas.getState() == "drag"){
+                } else if (mainCanvas.getState() == "drag") {
                     stopDrag();
                 }
 
@@ -186,6 +217,7 @@ public class GUI {
         frame.setVisible(true);
     }
 // Check if a given mouse coordinate falls within the boundaries of a shape
+
     boolean pointCheck(int mouseX, int mouseY, baseShape testshape) {
 
         if (mouseX > testshape.x && mouseX < testshape.x + testshape.width
@@ -198,15 +230,15 @@ public class GUI {
         return false;
     }
 
-    void startDrag(int x,int y) {
+    void startDrag(int x, int y) {
         // Keep track of all the selected 
         isDragging = true;
         ArrayList<baseShape> dragged = getSelected();
-        for(baseShape shape :dragged){
-            System.out.println("Old "+ shape.x);
-            shape.x =x;
+        for (baseShape shape : dragged) {
+            System.out.println("Old " + shape.x);
+            shape.x = x;
             shape.y = y;
-              System.out.println("New  "+ shape.x);
+            System.out.println("New  " + shape.x);
         }
         mainCanvas.repaint();
     }
@@ -214,9 +246,10 @@ public class GUI {
     void stopDrag() {
         isDragging = false;
     }
+
     // Gets all the selected shapes
-    ArrayList<baseShape> getSelected(){
-            ArrayList<baseShape> movelist = new ArrayList();
+    ArrayList<baseShape> getSelected() {
+        ArrayList<baseShape> movelist = new ArrayList();
         for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
             if (mainCanvas.shapeList.get(i).isSelected) {
                 movelist.add(mainCanvas.shapeList.get(i));
@@ -225,7 +258,7 @@ public class GUI {
         }
         return movelist;
     }
-    
+
 }
 
 // TEST TES TEST 
