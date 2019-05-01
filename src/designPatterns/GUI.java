@@ -145,16 +145,20 @@ public class GUI {
 
                 } else if (mainCanvas.getState() == "circle") {
                     drawShape("circle", xpos, ypos, xend, yend);
+                    
                 } else if (mainCanvas.getState() == "drag") {
                     int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
                     startDrag(xdiff, ydiff);
-                }else if(mainCanvas.getState() == "scale"){
-                                        int xdiff = xend - xpos;
+ 
+                } else if (mainCanvas.getState() == "scale") {
+                    int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
-                    scaleShape(xdiff,ydiff);
+                    scaleShape(xpos,xend,ypos,yend);
+                    
                 }
                 mainCanvas.repaint();
+                
             }
          
         });
@@ -217,10 +221,12 @@ public class GUI {
         }
         mainCanvas.repaint();
     }
-    public void scaleShape(int xdif,int ydif){
+    //Gets called from a mouse-drag. Calls the scale function of individual componenets
+    public void scaleShape(int xstart,int xend, int ystart,int yend){
+        
            ArrayList<baseShape> scaled = getSelected();
            for(baseShape shape:scaled){
-               shape.Rescale(true);
+               shape.Rescale(xstart,xend,ystart,yend);
            }
     }
     // Moves selected shapes by the mouse offset

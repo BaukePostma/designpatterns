@@ -35,6 +35,7 @@ public class Canvas extends JPanel{
         for (int i = 0; i < shapeList.size(); i++) {
          // Draw all the elements in shapeVector
          shapeList.get(i).Draw(g);
+         shapeList.get(i).SetMinSize();
         }
    g.drawString("a",10,20);
     }
