@@ -19,10 +19,16 @@ public abstract class baseShape {
     int width = 50;
     int height = 50;
     boolean isSelected = false;
-
+    int scale = 100;
+    
     public void Draw(Graphics g) {
 
     }
-;
+        public void toggleSelection(){
+        this.isSelected = !this.isSelected;
+    }
+    public void Rescale(boolean direction){
+        
+    }
 
 }

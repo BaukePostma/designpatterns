@@ -31,6 +31,5 @@ public class Main {
     int frameHeight = 300;
     // Create the GUI
     GUI MainUI = new GUI(frameWidth,frameHeight);
-   
     }  
 }

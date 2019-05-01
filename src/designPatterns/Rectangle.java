@@ -32,5 +32,15 @@ public class Rectangle extends baseShape{
          g2d.drawRect(x, y, width, height);
          
     }
-
+public void Rescale(boolean direction){
+    if (direction) {
+        //scale up
+        width *= 1.1;
+        height*=1.1;
+    }else{
+        //scale down
+        width*=0.9;
+        height*=0.9;
+    }
+}
 }

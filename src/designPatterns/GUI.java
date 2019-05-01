@@ -25,35 +25,35 @@ public class GUI {
     JMenu m3 = new JMenu("Select");
     JMenu m4 = new JMenu("Group");
     JMenu m5 = new JMenu("Drag");
+        JMenu m6 = new JMenu("Scale");
     JMenuItem action1 = new JMenuItem("Create");
     JMenuItem action2 = new JMenuItem("Create");
     JMenuItem action3 = new JMenuItem("Select");
     JMenuItem action4 = new JMenuItem("Group");
     JMenuItem action5 = new JMenuItem("Drag");
-
-    boolean isDragging = false;
-
+    JMenuItem action6 = new JMenuItem("Scale");
     public GUI(int height, int width) {
-        // Create the canvas
-
         // Create the main frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(height, width);
+        frame.getContentPane().add(BorderLayout.NORTH, mb);
+        frame.getContentPane().add(BorderLayout.CENTER, mainCanvas);
+        frame.setVisible(true);
         //Create the top menu
         mb.add(m1);
         mb.add(m2);
         mb.add(m3);
         mb.add(m4);
         mb.add(m5);
-
+        mb.add(m6);
         m1.add(action1);
         m2.add(action2);
         m3.add(action3);
         m4.add(action4);
         m5.add(action5);
-   
+ m6.add(action6);
+
         //Add handlers to the buttons to process events
-        
         action1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,14 +92,23 @@ public class GUI {
             }
 
         });
+        action6.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("Action6 performed");
+                mainCanvas.setState("scale");
+                //    System.out.println(mainCanvas.getState());
+            }
+
+        });
+
         // Add a mouselistener to the canvas to listen to click events
         mainCanvas.addMouseListener(new MouseAdapter() {
-
             boolean mouseDown = true;
             // Store Mousepress values
             int xpos = 0;
             int ypos = 0;
-            
+            //Store mouserelease values
             int xend = 0;
             int yend = 0;
 
@@ -110,25 +119,17 @@ public class GUI {
                 xpos = e.getX();
                 ypos = e.getY();
 
-                if (mainCanvas.getState() == "rectangle") {
-
-                } else if (mainCanvas.getState() == "circle") {
-
-                } else if (mainCanvas.getState() == "select") {
-
+                if (mainCanvas.getState() == "select") {
                     //Loop over every element in the shapelist
                     for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
                         if (pointCheck(xpos, ypos, mainCanvas.shapeList.get(i))) {
-                            mainCanvas.shapeList.get(i).isSelected = true;
+                          //  mainCanvas.shapeList.get(i).isSelected = true;
+                            mainCanvas.shapeList.get(i).toggleSelection();
                             System.out.println("Shape" + i + " is set to " + mainCanvas.shapeList.get(i).isSelected);
                         }
                     }
                 } else if (mainCanvas.getState() == "drag") {
                     System.out.print("Drag state = true");
-                //    startDrag(xpos, ypos);
-                    //
-                    // Get selected shapes, put them in a list
-                    ///  ArrayList<baseShape> shapeList = new ArrayList();
 
                 }
             }
@@ -140,87 +141,33 @@ public class GUI {
                 yend = e.getY();
 
                 if (mainCanvas.getState() == "rectangle") {
-                    
+                    drawShape("rectangle", xpos, ypos, xend, yend);
 
-                    //Create a new rectangle
-                    //    xpos = e.getX();
-                    //  ypos = e.getY();
-                    int width = xend - xpos;
-                    int height = yend - ypos;
-                    // Draai width & height om zodat ze altijd positief zijn
-                    if (width < 0) {
-                        width = width * -1;
-                    }
-                    if (height < 0) {
-                        height = height * -1;
-                    }
-                    int lowestX;
-                    if (xpos < xend) {
-                        lowestX = xpos;
-                    } else {
-                        lowestX = xend;
-                    }
-                    int lowestY;
-                    if (ypos < yend) {
-                        lowestY = ypos;
-                    } else {
-                        lowestY = yend;
-                    }
-                    Rectangle newRect = new Rectangle(lowestX, lowestY, width, height);
-                    mainCanvas.shapeList.add(newRect);
-                    mainCanvas.repaint();
                 } else if (mainCanvas.getState() == "circle") {
-                    int width = xend - xpos;
-                    int height = yend - ypos;
-                    // Draai width & height om zodat ze altijd positief zijn
-
-                    if (width < 0) {
-                        width = width * -1;
-                    }
-                    if (height < 0) {
-                        height = height * -1;
-                    }
-
-                    int lowestX;
-
-                    if (xpos < xend) {
-                        lowestX = xpos;
-
-                    } else {
-                        lowestX = xend;
-                    }
-
-                    int lowestY;
-
-                    if (ypos < yend) {
-                        lowestY = ypos;
-                    } else {
-                        lowestY = yend;
-                    }
-
-                    Elipse newElip = new Elipse(lowestX, lowestY, width, height);
-                    mainCanvas.shapeList.add(newElip);
-                    mainCanvas.repaint();
-                } else if (mainCanvas.getState() == "select") {
-
+                    drawShape("circle", xpos, ypos, xend, yend);
                 } else if (mainCanvas.getState() == "drag") {
-                       int xdiff = xend - xpos;
+                    int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
-                    startDrag(xdiff,ydiff);
+                    startDrag(xdiff, ydiff);
+                }else if(mainCanvas.getState() == "scale"){
+                                        int xdiff = xend - xpos;
+                    int ydiff = yend - ypos;
+                    scaleShape(xdiff,ydiff);
                 }
-
+                mainCanvas.repaint();
             }
+         
         });
-        // Code to add sub-elements to JMenu items. Leaving this here for reference
-        //  JMenuItem m11 = new JMenuItem("Open");
-        //    m1.add(m11);
-        // Add it to the top of our JFrame using a north Borderlayout
-        frame.getContentPane().add(BorderLayout.NORTH, mb);
-        frame.getContentPane().add(BorderLayout.CENTER, mainCanvas);
-        frame.setVisible(true);
+        
+          mainCanvas.addMouseMotionListener(new MouseAdapter() {
+           @Override
+              public void mouseMoved(MouseEvent e) {
+                  mainCanvas.repaint();
+            System.out.print("Mouse moved");
     }
-// Check if a given mouse coordinate falls within the boundaries of a shape
-
+    });
+    }
+// Check if a given mouse coordinate falls within the boundaries of a shape. Used for selecting 
     boolean pointCheck(int mouseX, int mouseY, baseShape testshape) {
 
         if (mouseX > testshape.x && mouseX < testshape.x + testshape.width
@@ -232,10 +179,53 @@ public class GUI {
 
         return false;
     }
+// Draws rectangles or circles depending on the given parameters
+    void drawShape(String type, int xpos, int ypos, int xend, int yend) {
+        int width = xend - xpos;
+        int height = yend - ypos;
+        // Draai width & height om zodat ze altijd positief zijn
+        if (width < 0) {
+            width = width * -1;
+        }
+        if (height < 0) {
+            height = height * -1;
+        }
 
+        int lowestX;
+
+        if (xpos < xend) {
+            lowestX = xpos;
+
+        } else {
+            lowestX = xend;
+        }
+
+        int lowestY;
+
+        if (ypos < yend) {
+            lowestY = ypos;
+        } else {
+            lowestY = yend;
+        }
+        if (type == "circle") {
+            Elipse shape = new Elipse(lowestX, lowestY, width, height);
+            mainCanvas.shapeList.add(shape);
+
+        } else if (type == "rectangle") {
+            Rectangle shape = new Rectangle(lowestX, lowestY, width, height);
+            mainCanvas.shapeList.add(shape);
+        }
+        mainCanvas.repaint();
+    }
+    public void scaleShape(int xdif,int ydif){
+           ArrayList<baseShape> scaled = getSelected();
+           for(baseShape shape:scaled){
+               shape.Rescale(true);
+           }
+    }
+    // Moves selected shapes by the mouse offset
     void startDrag(int x, int y) {
         // Keep track of all the selected 
-        isDragging = true;
         ArrayList<baseShape> dragged = getSelected();
         for (baseShape shape : dragged) {
             System.out.println("Old " + shape.x);
@@ -246,8 +236,9 @@ public class GUI {
         mainCanvas.repaint();
     }
 
+    // Might be usefull later? kinda forgot
     void stopDrag() {
-        isDragging = false;
+
     }
 
     // Gets all the selected shapes
