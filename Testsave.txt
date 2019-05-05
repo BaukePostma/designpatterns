@@ -1,3 +1,2 @@
 Rectangle 50 50 50 50 
-Rectangle 132 142 108 101 
-Elipse 150 159 82 69 
+Rectangle 111 168 195 161 

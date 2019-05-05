@@ -27,16 +27,16 @@ public class Saver {
     void Save(ArrayList<baseShape> shapelist, String fileName) throws IOException {
         FileWriter fileWriter = new FileWriter(fileName);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        
-   for (baseShape shape : shapelist) {
-       printWriter.println(
-                  shape.type + " "
-               + shape.x + " "
-               + shape.y + " " 
-               + shape.width + " " 
-               + shape.height + " " 
-       );
-   }
+
+        for (baseShape shape : shapelist) {
+            printWriter.println(
+                    shape.type + " "
+                    + shape.x + " "
+                    + shape.y + " "
+                    + shape.width + " "
+                    + shape.height + " "
+            );
+        }
         printWriter.close();
     }
 
@@ -44,26 +44,38 @@ public class Saver {
      * Returns the data
      */
     ArrayList<baseShape> Load(String fileName) throws FileNotFoundException, IOException {
-        ArrayList<baseShape> q = null;
+        ArrayList<baseShape> shapelist = new ArrayList<baseShape>();
 
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String line;
         while ((line = reader.readLine()) != null) {
-       String[] words =line.split(" ");
-       switch(words[0]){
-           case "Rectangle":
-               //Rectangle
-               break;
-           case "Elipse:":
-                   // Elipse
-                   break;
-           default:
-               System.out.print("crap");
-               
-       }
-    }
-    reader.close();
-    
-        return q;
+            String[] words = line.split(" ");
+            switch (words[0]) {
+                case "Rectangle":
+                    Rectangle rect = new Rectangle(
+                            Integer.parseInt(words[1]),
+                            Integer.parseInt(words[2]),
+                            Integer.parseInt(words[3]),
+                            Integer.parseInt(words[4])
+                    );
+                    shapelist.add(rect);
+                    break;
+                case "Elipse:":
+                    Elipse el = new Elipse(
+                            Integer.parseInt(words[1]),
+                            Integer.parseInt(words[2]),
+                            Integer.parseInt(words[3]),
+                            Integer.parseInt(words[4])
+                    );
+                    shapelist.add(el);
+                    break;
+                default:
+                    System.out.print("crap");
+
+            }
+        }
+        reader.close();
+
+        return shapelist;
     }
 }
