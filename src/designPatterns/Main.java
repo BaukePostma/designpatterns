@@ -3,8 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 package designPatterns;
 
 import java.awt.Component;
@@ -26,10 +24,10 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-    int frameWidth = 300;
-    int frameHeight = 300;
-    // Create the GUI
-    GUI MainUI = new GUI(frameWidth,frameHeight);
-    }  
+
+        int frameWidth = 300;
+        int frameHeight = 300;
+        // Create the GUI
+        GUI MainUI = new GUI(frameWidth, frameHeight);
+    }
 }

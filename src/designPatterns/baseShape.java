@@ -23,13 +23,21 @@ public abstract class baseShape {
     int scale = 100;
 
     public abstract void Draw(Graphics g);
-
+/**
+ * Toggles whether or not this shape is selected 
+ */
     public void toggleSelection() {
 
         this.isSelected = !this.isSelected;
 
     }
-
+/**
+ *  Scales this shape up or down depending on the position and direction of the mouse drag
+ * @param xstart    mouseX starting position
+ * @param xend      mouseX end position
+ * @param ystart    mouseY start position
+ * @param yend      mouseY end position
+ */
     public void Rescale(int xstart, int xend, int ystart, int yend) {
 
         //    int scalefactor = 1;
@@ -60,20 +68,6 @@ public abstract class baseShape {
             this.height += ydiff;
             this.y -= testy;
         }
-        //Test
-//        double test1 = width - xdiff;
-//        double test2 = centerx - width;
-//        double test3 = test1 / test2;
-//        // double Xvar = ((width-xdiff) / (centerx-width));
-//        double ScaleX = test3 + 1;
-//        //end test
-//        int test = xdiff / 2;
-//        this.width += xdiff;
-//        this.x -= test;
-//
-//        int testy = ydiff / 2;
-//        this.height += ydiff;
-//        this.y -= testy;
 
     }
 
