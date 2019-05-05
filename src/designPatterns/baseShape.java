@@ -81,4 +81,38 @@ public abstract class baseShape {
             this.height = 5;
         }
     }
+    
+     public baseShape drawShape(String type, int xpos, int ypos, int xend, int yend) {
+        int width = xend - xpos;
+        int height = yend - ypos;
+        // Draai width & height om zodat ze altijd positief zijn
+        if (width < 0) {
+            width = width * -1;
+        }
+        if (height < 0) {
+            height = height * -1;
+        }
+        int lowestX;
+        if (xpos < xend) {
+            lowestX = xpos;
+        } else {
+            lowestX = xend;
+        }
+        int lowestY;
+        if (ypos < yend) {
+            lowestY = ypos;
+        } else {
+            lowestY = yend;
+        }
+        if (type == "circle") {
+            Elipse shape = new Elipse(lowestX, lowestY, width, height);
+            return shape;
+            //mainCanvas.shapeList.add(shape);
+
+        } else  {
+            Rectangle shape = new Rectangle(lowestX, lowestY, width, height);
+            return shape;
+            //mainCanvas.shapeList.add(shape);
+        }
+    }
 }

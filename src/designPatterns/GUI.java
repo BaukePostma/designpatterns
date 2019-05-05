@@ -21,6 +21,7 @@ import javax.swing.event.*;
  */
 public class GUI {
 
+    ArrayList<ICommand> CommandHistory = new ArrayList<ICommand>();
     Canvas mainCanvas = new Canvas();
     JFrame frame = new JFrame("PaintPlus");
     JMenuBar mb = new JMenuBar();
@@ -179,8 +180,10 @@ public class GUI {
                 xend = e.getX();
                 yend = e.getY();
                 if (mainCanvas.getState() == "rectangle") {
-                    drawShape("rectangle", xpos, ypos, xend, yend);
-
+                    baseShape q = drawShape("rectangle", xpos, ypos, xend, yend);
+                   CommandRectangle command = new CommandRectangle(mainCanvas.shapeList,q);
+                   CommandHistory.add(command);
+                   command.Execute();
                 } else if (mainCanvas.getState() == "circle") {
                     drawShape("circle", xpos, ypos, xend, yend);
 
@@ -223,7 +226,7 @@ public class GUI {
 /**
     Draws rectangles or circles depending on the given parameters
 **/
-    void drawShape(String type, int xpos, int ypos, int xend, int yend) {
+    baseShape drawShape(String type, int xpos, int ypos, int xend, int yend) {
         int width = xend - xpos;
         int height = yend - ypos;
         // Draai width & height om zodat ze altijd positief zijn
@@ -233,18 +236,13 @@ public class GUI {
         if (height < 0) {
             height = height * -1;
         }
-
         int lowestX;
-
         if (xpos < xend) {
             lowestX = xpos;
-
         } else {
             lowestX = xend;
         }
-
         int lowestY;
-
         if (ypos < yend) {
             lowestY = ypos;
         } else {
@@ -252,13 +250,14 @@ public class GUI {
         }
         if (type == "circle") {
             Elipse shape = new Elipse(lowestX, lowestY, width, height);
-            mainCanvas.shapeList.add(shape);
+            return shape;
+            //mainCanvas.shapeList.add(shape);
 
-        } else if (type == "rectangle") {
+        } else  {
             Rectangle shape = new Rectangle(lowestX, lowestY, width, height);
-            mainCanvas.shapeList.add(shape);
+            return shape;
+            //mainCanvas.shapeList.add(shape);
         }
-        mainCanvas.repaint();
     }
 
     //Gets called from a mouse-drag. Calls the scale function of individual componenets
@@ -283,10 +282,6 @@ public class GUI {
         mainCanvas.repaint();
     }
 
-    // Might be usefull later? kinda forgot
-    void stopDrag() {
-
-    }
 
     // Gets all the selected shapes
     ArrayList<baseShape> getSelected() {

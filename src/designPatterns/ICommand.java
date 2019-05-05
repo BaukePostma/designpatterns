@@ -10,6 +10,6 @@ package designPatterns;
  * @author Bauke
  */
 public interface ICommand {
-    public void Execture();
+    public void Execute();
     public void Undo();
 }
