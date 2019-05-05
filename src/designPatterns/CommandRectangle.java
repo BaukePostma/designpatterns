@@ -36,7 +36,7 @@ public class CommandRectangle implements ICommand{
     @Override
     public void Undo() {
         shapelist.remove(shapelist.size()-1);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 

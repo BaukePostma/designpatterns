@@ -21,7 +21,7 @@ import javax.swing.event.*;
 public class GUI {
 
     ArrayList<ICommand> CommandHistory = new ArrayList<ICommand>();
-    int undocount = 1;
+    int undocount = 0;
     
     Canvas mainCanvas = new Canvas();
     JFrame frame = new JFrame("PaintPlus");
@@ -155,7 +155,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Undo Clicked\n");
                
-                CommandHistory.get(CommandHistory.size()-undocount).Undo();
+                CommandHistory.get(CommandHistory.size()-undocount-1).Undo();
                  undocount++;
             }
         });
@@ -163,7 +163,16 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Redo Clicked\n");
-                mainCanvas.setState("rectangle");
+                // Check if there is anything left to redo
+             //   int t = CommandHistory.size() -undocount;
+                if (undocount>0) {
+                                              CommandHistory.get(CommandHistory.size()-undocount).Execute();
+                           undocount--;
+                }else{
+                    System.out.print("Nothing l,eft to redo");
+                }
+ 
+
             }
         });
 
@@ -320,6 +329,16 @@ public class GUI {
             }
         }
         return movelist;
+    }
+
+    void ClearHistory(int amount) {
+        //Check if we can actually clear that amount of commands
+        if (this.CommandHistory.size() >= amount) {
+            for (int i = 0; i < amount; i++) {
+                this.CommandHistory.remove(CommandHistory.size() - 1);
+            }
+        }
+
     }
 
 }
