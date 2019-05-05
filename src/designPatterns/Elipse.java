@@ -21,6 +21,7 @@ public class Elipse extends baseShape {
         this.y = y;
         this.width = width;
         this.height = height;
+        this.type = "Elipse";
     }
 
     // Overrride the draw function, geps passed the graphics object, calls the draw function to draw itself

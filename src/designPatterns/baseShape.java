@@ -21,6 +21,7 @@ public abstract class baseShape {
     int height = 50;
     boolean isSelected = false;
     int scale = 100;
+    String type;
 
     public abstract void Draw(Graphics g);
 /**

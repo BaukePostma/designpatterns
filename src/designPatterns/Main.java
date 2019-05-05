@@ -25,8 +25,8 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        int frameWidth = 300;
-        int frameHeight = 300;
+        int frameWidth = 500;
+        int frameHeight = 500;
         // Create the GUI
         GUI MainUI = new GUI(frameWidth, frameHeight);
     }

@@ -7,9 +7,13 @@ package designPatterns;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.*;
+
 
 /**
  *
@@ -26,13 +30,15 @@ public class GUI {
     JMenu m4 = new JMenu("Group");
     JMenu m5 = new JMenu("Drag");
     JMenu m6 = new JMenu("Scale");
+    JMenu m7 = new JMenu("File");
     JMenuItem action1 = new JMenuItem("Create");
     JMenuItem action2 = new JMenuItem("Create");
     JMenuItem action3 = new JMenuItem("Select");
     JMenuItem action4 = new JMenuItem("Group");
     JMenuItem action5 = new JMenuItem("Drag");
     JMenuItem action6 = new JMenuItem("Scale");
-
+    JMenuItem action7 = new JMenuItem("Save");
+    JMenuItem action8 = new JMenuItem("Load");
     public GUI(int height, int width) {
         // Create the main frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -47,13 +53,15 @@ public class GUI {
         mb.add(m4);
         mb.add(m5);
         mb.add(m6);
+        mb.add(m7);
         m1.add(action1);
         m2.add(action2);
         m3.add(action3);
         m4.add(action4);
         m5.add(action5);
         m6.add(action6);
-
+        m7.add(action7);
+        m7.add(action8);
         //Add handlers to the buttons to process events
         action1.addActionListener(new ActionListener() {
             @Override
@@ -102,7 +110,30 @@ public class GUI {
             }
 
         });
+    action7.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("Action7 performed");
+                Saver q = new Saver();
+                try {
+                    q.Save(mainCanvas.shapeList, "Testsave.txt");
+                } catch (IOException ex) {
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                mainCanvas.setState("drag");
+                //    System.out.println(mainCanvas.getState());
+            }
 
+        });
+            action8.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("Action8 performed");
+                //Load
+            }
+
+        });
+            
         // Add a mouselistener to the canvas to listen to click events
         mainCanvas.addMouseListener(new MouseAdapter() {
             boolean mouseDown = true;
@@ -260,6 +291,7 @@ public class GUI {
         }
         return movelist;
     }
+
 
 }
 
