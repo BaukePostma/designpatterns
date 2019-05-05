@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.event.*;
 
-
 /**
  *
  * @author Bauke
@@ -22,6 +21,8 @@ import javax.swing.event.*;
 public class GUI {
 
     ArrayList<ICommand> CommandHistory = new ArrayList<ICommand>();
+    int undocount = 1;
+    
     Canvas mainCanvas = new Canvas();
     JFrame frame = new JFrame("PaintPlus");
     JMenuBar mb = new JMenuBar();
@@ -32,6 +33,7 @@ public class GUI {
     JMenu m5 = new JMenu("Drag");
     JMenu m6 = new JMenu("Scale");
     JMenu m7 = new JMenu("File");
+    JMenu m8 = new JMenu("History");
     JMenuItem action1 = new JMenuItem("Create");
     JMenuItem action2 = new JMenuItem("Create");
     JMenuItem action3 = new JMenuItem("Select");
@@ -40,6 +42,9 @@ public class GUI {
     JMenuItem action6 = new JMenuItem("Scale");
     JMenuItem action7 = new JMenuItem("Save");
     JMenuItem action8 = new JMenuItem("Load");
+    JMenuItem action9 = new JMenuItem("Undo");
+    JMenuItem action10 = new JMenuItem("Redo");
+
     public GUI(int height, int width) {
         // Create the main frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,6 +60,7 @@ public class GUI {
         mb.add(m5);
         mb.add(m6);
         mb.add(m7);
+        mb.add(m8);
         m1.add(action1);
         m2.add(action2);
         m3.add(action3);
@@ -63,6 +69,8 @@ public class GUI {
         m6.add(action6);
         m7.add(action7);
         m7.add(action8);
+        m8.add(action9);
+        m8.add(action10);
         //Add handlers to the buttons to process events
         action1.addActionListener(new ActionListener() {
             @Override
@@ -111,7 +119,7 @@ public class GUI {
             }
 
         });
-    action7.addActionListener(new ActionListener() {
+        action7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Action7 performed");
@@ -126,13 +134,13 @@ public class GUI {
             }
 
         });
-            action8.addActionListener(new ActionListener() {
+        action8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Action8 performed");
                 Saver q = new Saver();
                 try {
-                   // mainCanvas.shapeList = null;
+                    // mainCanvas.shapeList = null;
                     mainCanvas.shapeList = q.Load("Testsave.txt");
                     mainCanvas.repaint();
                     //Load
@@ -142,7 +150,23 @@ public class GUI {
             }
 
         });
-            
+        action9.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("Undo Clicked\n");
+               
+                CommandHistory.get(CommandHistory.size()-undocount).Undo();
+                 undocount++;
+            }
+        });
+        action10.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.print("Redo Clicked\n");
+                mainCanvas.setState("rectangle");
+            }
+        });
+
         // Add a mouselistener to the canvas to listen to click events
         mainCanvas.addMouseListener(new MouseAdapter() {
             boolean mouseDown = true;
@@ -153,6 +177,7 @@ public class GUI {
             int xend = 0;
             int yend = 0;
 // What actions to take for different events
+
             @Override
             public void mousePressed(MouseEvent e) {
                 mouseDown = true;
@@ -181,9 +206,9 @@ public class GUI {
                 yend = e.getY();
                 if (mainCanvas.getState() == "rectangle") {
                     baseShape q = drawShape("rectangle", xpos, ypos, xend, yend);
-                   CommandRectangle command = new CommandRectangle(mainCanvas.shapeList,q);
-                   CommandHistory.add(command);
-                   command.Execute();
+                    CommandRectangle command = new CommandRectangle(mainCanvas.shapeList, q);
+                    CommandHistory.add(command);
+                    command.Execute();
                 } else if (mainCanvas.getState() == "circle") {
                     drawShape("circle", xpos, ypos, xend, yend);
 
@@ -211,9 +236,10 @@ public class GUI {
         });
     }
 
-/** 
- * Check if a given mouse coordinate falls within the boundaries of a shape. Used for selecting 
- */
+    /**
+     * Check if a given mouse coordinate falls within the boundaries of a shape.
+     * Used for selecting
+     */
     boolean pointCheck(int mouseX, int mouseY, baseShape testshape) {
 
         if (mouseX > testshape.x && mouseX < testshape.x + testshape.width
@@ -223,9 +249,11 @@ public class GUI {
         }
         return false;
     }
-/**
-    Draws rectangles or circles depending on the given parameters
-**/
+
+    /**
+     * Draws rectangles or circles depending on the given parameters
+*
+     */
     baseShape drawShape(String type, int xpos, int ypos, int xend, int yend) {
         int width = xend - xpos;
         int height = yend - ypos;
@@ -253,7 +281,7 @@ public class GUI {
             return shape;
             //mainCanvas.shapeList.add(shape);
 
-        } else  {
+        } else {
             Rectangle shape = new Rectangle(lowestX, lowestY, width, height);
             return shape;
             //mainCanvas.shapeList.add(shape);
@@ -282,7 +310,6 @@ public class GUI {
         mainCanvas.repaint();
     }
 
-
     // Gets all the selected shapes
     ArrayList<baseShape> getSelected() {
         ArrayList<baseShape> movelist = new ArrayList();
@@ -294,7 +321,6 @@ public class GUI {
         }
         return movelist;
     }
-
 
 }
 
