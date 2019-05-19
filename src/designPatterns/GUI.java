@@ -243,7 +243,7 @@ public class GUI {
                     int ydiff = yend - ypos;
                     //startDrag(xdiff, ydiff);
                     
-                    CommandDrag command = new CommandDrag(mainCanvas.shapeList,getSelected(),xdiff,ydiff);
+                    CommandDrag command = new CommandDrag(getSelected(),xdiff,ydiff);
                     CommandHistory.add(command);
                     command.Execute();
 ;
@@ -251,7 +251,11 @@ public class GUI {
                 } else if (mainCanvas.getState() == "scale") {
                     int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
-                    scaleShape(xpos, xend, ypos, yend);
+                    //scaleShape(xpos, xend, ypos, yend);
+                    
+                    CommandScale command = new CommandScale(getSelected(),xpos,xend,ypos,yend);
+                    CommandHistory.add(command);
+                    command.Execute();
                 }
                 //Forces the canvas to update
                 mainCanvas.repaint();
