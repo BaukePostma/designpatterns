@@ -153,10 +153,19 @@ public class GUI {
         action9.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Undo Clicked\n");
-               
-                CommandHistory.get(CommandHistory.size()-undocount-1).Undo();
+                System.out.print("Undo Clicked+\n");
+                int test = CommandHistory.size()-undocount-1;
+                if (CommandHistory.size()-undocount >0) {
+                     System.out.print("Command nr. "+test);
+                // Only undo if there's something to undo
+                 CommandHistory.get(CommandHistory.size()-undocount-1).Undo();
                  undocount++;
+                }else{
+                    System.out.println("Undo failed, nothing left to undo");
+                }
+               
+               
+
             }
         });
         action10.addActionListener(new ActionListener() {
@@ -164,12 +173,11 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Redo Clicked\n");
                 // Check if there is anything left to redo
-             //   int t = CommandHistory.size() -undocount;
                 if (undocount>0) {
-                                              CommandHistory.get(CommandHistory.size()-undocount).Execute();
+                           CommandHistory.get(CommandHistory.size()-undocount).Execute();
                            undocount--;
                 }else{
-                    System.out.print("Nothing l,eft to redo");
+                    System.out.print("Nothing left to redo");
                 }
  
 
@@ -206,6 +214,7 @@ public class GUI {
                 } else if (mainCanvas.getState() == "drag") {
                     System.out.print("Drag state = true");
                 }
+                mainCanvas.repaint();
             }
 
             @Override
@@ -214,17 +223,30 @@ public class GUI {
                 xend = e.getX();
                 yend = e.getY();
                 if (mainCanvas.getState() == "rectangle") {
+                    ClearHistory(undocount);
                     baseShape q = drawShape("rectangle", xpos, ypos, xend, yend);
                     CommandRectangle command = new CommandRectangle(mainCanvas.shapeList, q);
                     CommandHistory.add(command);
                     command.Execute();
+                    
                 } else if (mainCanvas.getState() == "circle") {
-                    drawShape("circle", xpos, ypos, xend, yend);
+                     ClearHistory(undocount);
+                    baseShape q = drawShape("circle",xpos,ypos,xend,yend);
+                    CommandElipse command  = new CommandElipse(mainCanvas.shapeList,q);
+                    CommandHistory.add(command);
+                    command.Execute();
+                   //drawShape("circle", xpos, ypos, xend, yend);
 
                 } else if (mainCanvas.getState() == "drag") {
+                     ClearHistory(undocount);
                     int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
-                    startDrag(xdiff, ydiff);
+                    //startDrag(xdiff, ydiff);
+                    
+                    CommandDrag command = new CommandDrag(mainCanvas.shapeList,getSelected(),xdiff,ydiff);
+                    CommandHistory.add(command);
+                    command.Execute();
+;
 
                 } else if (mainCanvas.getState() == "scale") {
                     int xdiff = xend - xpos;
@@ -240,7 +262,7 @@ public class GUI {
             @Override
             public void mouseMoved(MouseEvent e) {
                 mainCanvas.repaint();
-                System.out.print("Mouse moved");
+                //System.out.print("Mouse moved");
             }
         });
     }
@@ -333,10 +355,11 @@ public class GUI {
 
     void ClearHistory(int amount) {
         //Check if we can actually clear that amount of commands
-        if (this.CommandHistory.size() >= amount) {
+        if (amount>0) {
             for (int i = 0; i < amount; i++) {
                 this.CommandHistory.remove(CommandHistory.size() - 1);
             }
+            undocount = 0;
         }
 
     }
