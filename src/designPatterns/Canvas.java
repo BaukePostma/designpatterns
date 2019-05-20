@@ -1,18 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package designPatterns;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.util.ArrayList;
-
 /**
  *The canvas that holds and draws the shapes. 
  * @author Bauke
  */
+
 public class Canvas extends JPanel {
 
     ArrayList<baseShape> shapeList = new ArrayList();
@@ -32,7 +27,7 @@ public class Canvas extends JPanel {
     }
 /**
  * The main drawing loop. Renders all the shapes in shpeList.
- * @param g 
+ * @param g magical graphics object
  */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
