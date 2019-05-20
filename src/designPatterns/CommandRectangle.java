@@ -1,14 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package designPatterns;
 
 import java.util.ArrayList;
 
 /**
- *
+ * Command pattern for creating rectangles
  * @author Bauke
  */
 public class CommandRectangle implements ICommand{
@@ -16,6 +11,11 @@ public class CommandRectangle implements ICommand{
     ArrayList<baseShape> shapelist = null;
     baseShape shape = null;
     int x,y,width,height = 0;
+    /**
+     * 
+     * @param shapelist Reference to the shapelist.Add the shape to this
+     * @param q  The shape to add
+     */
     public CommandRectangle(ArrayList<baseShape> shapelist,baseShape q){
         //Hopefully store a reference to the canvas so we can acces the shapelist
         this.shapelist = shapelist;
@@ -29,7 +29,7 @@ public class CommandRectangle implements ICommand{
     @Override
     public void Execute() {
       //  Rectangle rect = new Rectangle(x,y,width,height);
-        shapelist.add(shape);
+        this.shapelist.add(shape);
        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -39,6 +39,4 @@ public class CommandRectangle implements ICommand{
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-
-    
 }

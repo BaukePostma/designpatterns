@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package designPatterns;
 
 import java.io.BufferedReader;
@@ -14,14 +10,13 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- *
+ *  Contains the save and load functions
  * @author Bauke
  */
 public class Saver {
 
     /**
-     * Takes a shapelist, stores it as a file. This version only saves shapes
-     *
+     * Takes a shapelist, stores it as a file. right now  only saves shapes
      * @param shapelist
      */
     void Save(ArrayList<baseShape> shapelist, String fileName) throws IOException {

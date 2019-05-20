@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package designPatterns;
 
 import java.awt.Component;
@@ -11,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 
 /**
- *
+ * Is this being used anymore? i have no clue
  * @author Bauke
  */
 public class CustomPaintComponent extends Component {

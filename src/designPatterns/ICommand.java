@@ -6,7 +6,7 @@
 package designPatterns;
 
 /**
- *
+ * Basic interface for the command pattern. Forces classes to implement the execute and undo commands
  * @author Bauke
  */
 public interface ICommand {

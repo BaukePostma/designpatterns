@@ -25,7 +25,10 @@ public class Rectangle extends baseShape {
         this.type = "Rectangle";
     }
 
-// Overrride the draw function, geps passed the graphics object, calls the draw function to draw itself
+    /**
+     *  Overrride the draw function, geps passed the graphics object, calls the draw function to draw itself
+     * @param g Magical graphics object
+     */
     @Override
     public void Draw(Graphics g) {
         //       super.paintComponent(g);
