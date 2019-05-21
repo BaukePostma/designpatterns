@@ -14,9 +14,11 @@ import javax.swing.event.*;
  * @author Bauke
  */
 public class GUI {
+    
+   
+   Invoker invoker = new Invoker();
+   
 
-    ArrayList<ICommand> CommandHistory = new ArrayList<ICommand>();
-    int undocount = 0;
     
     Canvas mainCanvas = new Canvas();
     JFrame frame = new JFrame("PaintPlus");
@@ -149,18 +151,7 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Undo Clicked+\n");
-                int test = CommandHistory.size()-undocount-1;
-                if (CommandHistory.size()-undocount >0) {
-                     System.out.print("Command nr. "+test);
-                // Only undo if there's something to undo
-                 CommandHistory.get(CommandHistory.size()-undocount-1).Undo();
-                 undocount++;
-                }else{
-                    System.out.println("Undo failed, nothing left to undo");
-                }
-               
-               
-
+                invoker.UndoAction();
             }
         });
         action10.addActionListener(new ActionListener() {
@@ -168,12 +159,7 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Redo Clicked\n");
                 // Check if there is anything left to redo
-                if (undocount>0) {
-                           CommandHistory.get(CommandHistory.size()-undocount).Execute();
-                           undocount--;
-                }else{
-                    System.out.print("Nothing left to redo");
-                }
+              invoker.DoAction();
  
 
             }
@@ -218,39 +204,41 @@ public class GUI {
                 xend = e.getX();
                 yend = e.getY();
                 if (mainCanvas.getState() == "rectangle") {
-                    ClearHistory(undocount);
+                    //ClearHistory(undocount);
                     baseShape q = drawShape("rectangle", xpos, ypos, xend, yend);
-                    CommandRectangle command = new CommandRectangle(mainCanvas.shapeList, q);
-                    CommandHistory.add(command);
-                    command.Execute();
+                    invoker.AddAction(new CommandRectangle(mainCanvas.shapeList, q));
+                   
+                   // CommandHistory.add(command);
+                    //command.Execute();
                     
                 } else if (mainCanvas.getState() == "circle") {
-                     ClearHistory(undocount);
+                     //Cl//earHistory(undocount);
                     baseShape q = drawShape("circle",xpos,ypos,xend,yend);
-                    CommandElipse command  = new CommandElipse(mainCanvas.shapeList,q);
-                    CommandHistory.add(command);
-                    command.Execute();
+                    invoker.AddAction(new CommandElipse(mainCanvas.shapeList,q));
+                    //CommandElipse command  = );
+                   // CommandHistory.add(command);
+                   // command.Execute();
                    //drawShape("circle", xpos, ypos, xend, yend);
 
                 } else if (mainCanvas.getState() == "drag") {
-                     ClearHistory(undocount);
+               //      ClearHistory(undocount);
                     int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
                     //startDrag(xdiff, ydiff);
-                    
-                    CommandDrag command = new CommandDrag(getSelected(),xdiff,ydiff);
-                    CommandHistory.add(command);
-                    command.Execute();
+                    invoker.AddAction(new CommandDrag(getSelected(),xdiff,ydiff));
+                   // CommandDrag command = new CommandDrag(getSelected(),xdiff,ydiff);
+                    //CommandHistory.add(command);
+               //     command.Execute();
 ;
 
                 } else if (mainCanvas.getState() == "scale") {
                     int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
                     //scaleShape(xpos, xend, ypos, yend);
-                    
+                    invoker.AddAction(new CommandScale(getSelected(),xpos,xend,ypos,yend));
                     CommandScale command = new CommandScale(getSelected(),xpos,xend,ypos,yend);
-                    CommandHistory.add(command);
-                    command.Execute();
+                  //  CommandHistory.add(command);
+                    //command.Execute();
                 }
                 //Forces the canvas to update
                 mainCanvas.repaint();
@@ -352,16 +340,7 @@ public class GUI {
         return movelist;
     }
 
-    void ClearHistory(int amount) {
-        //Check if we can actually clear that amount of commands
-        if (amount>0) {
-            for (int i = 0; i < amount; i++) {
-                this.CommandHistory.remove(CommandHistory.size() - 1);
-            }
-            undocount = 0;
-        }
-
-    }
+    
 
 }
 
