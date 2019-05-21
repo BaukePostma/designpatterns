@@ -20,7 +20,7 @@ public class GUI {
    
 
     
-    Canvas mainCanvas = new Canvas();
+    Canvas mainCanvas =  Canvas.getInstance();
     JFrame frame = new JFrame("PaintPlus");
     JMenuBar mb = new JMenuBar();
     JMenu m1 = new JMenu("Rectangle");
