@@ -19,19 +19,19 @@ public class Saver {
      * Takes a shapelist, stores it as a file. right now  only saves shapes
      * @param shapelist
      */
-    void Save(ArrayList<baseShape> shapelist, String fileName) throws IOException {
+    void Save(Group shapelist, String fileName) throws IOException {
         FileWriter fileWriter = new FileWriter(fileName);
         PrintWriter printWriter = new PrintWriter(fileWriter);
 
-        for (baseShape shape : shapelist) {
-            printWriter.println(
-                    shape.type + " "
-                    + shape.x + " "
-                    + shape.y + " "
-                    + shape.width + " "
-                    + shape.height + " "
-            );
-        }
+//        for (baseShape shape : shapelist) {
+//            printWriter.println(
+//                    shape.type + " "
+//                    + shape.x + " "
+//                    + shape.y + " "
+//                    + shape.width + " "
+//                    + shape.height + " "
+//            );
+//        }
         printWriter.close();
     }
 

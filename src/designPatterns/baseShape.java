@@ -13,7 +13,7 @@ import java.awt.Graphics;
  * @author Bauke
  * 
  */
-public abstract class baseShape {
+public abstract class baseShape  implements ShapeContainer {
 
     // TODO add getters setters
     int x = 50;
@@ -28,11 +28,7 @@ public abstract class baseShape {
 /**
  * Toggles whether or not this shape is selected 
  */
-    public void toggleSelection() {
 
-        this.isSelected = !this.isSelected;
-
-    }
 /**
  *  Scales this shape up or down depending on the position and direction of the mouse drag
  * @param xstart    mouseX starting position

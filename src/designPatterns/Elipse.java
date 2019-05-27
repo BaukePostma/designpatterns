@@ -8,13 +8,14 @@ package designPatterns;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Bemi
  */
-public class Elipse extends baseShape {
+public class Elipse extends baseShape implements ShapeContainer{
 
     public Elipse(int x, int y, int width, int height) {
         this.x = x;
@@ -38,6 +39,26 @@ public class Elipse extends baseShape {
     public void paintComponent(Graphics g) {
 
         System.out.print("IT DRAWS");
+    }
+
+    @Override
+    public void drawShapes(Graphics g) {
+        
+     g.drawOval(x, y, width, height);
+    }
+
+    @Override
+    public void toggleSelection() {
+        this.isSelected = !this.isSelected;
+    }
+    
+    @Override
+    public ArrayList<ShapeContainer> ReturnSelectedShapes(int x, int y) {
+        ArrayList<ShapeContainer> single = new ArrayList<ShapeContainer>();
+        if (this.isSelected) {
+            single.add(this);
+        }
+        return single;
     }
 
 }

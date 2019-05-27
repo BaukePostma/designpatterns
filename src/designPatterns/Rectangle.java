@@ -8,6 +8,7 @@ package designPatterns;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Component;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 
 /**
@@ -15,7 +16,7 @@ import javax.swing.JPanel;
  *
  * @author Bauke
  */
-public class Rectangle extends baseShape {
+public class Rectangle extends baseShape{
 
     public Rectangle(int x, int y, int width, int height) {
         this.x = x;
@@ -36,6 +37,24 @@ public class Rectangle extends baseShape {
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawRect(x, y, width, height);
         //  g2d.scale(5, 5);
+    }
+
+    @Override
+    public void drawShapes(Graphics g) {
+        g.drawRect(x, y, width, height);
+    }
+        @Override
+    public void toggleSelection() {
+        this.isSelected = !this.isSelected;
+    }
+
+    @Override
+    public ArrayList<ShapeContainer> ReturnSelectedShapes(int x, int y) {
+        ArrayList<ShapeContainer> single = new ArrayList<ShapeContainer>();
+        if (this.isSelected) {
+            single.add(this);
+        }
+        return single;
     }
 
 }
