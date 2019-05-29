@@ -185,13 +185,18 @@ public class GUI {
 
                 if (mainCanvas.getState() == "select") {
                     //Loop over every element in the shapelist
-                    for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
-                        if (pointCheck(xpos, ypos, mainCanvas.shapeList.get(i))) {
-                            //  mainCanvas.shapeList.get(i).isSelected = true;
-                            mainCanvas.shapeList.get(i).toggleSelection();
-                            System.out.println("Shape" + i + " is set to " + mainCanvas.shapeList.get(i).isSelected);
-                        }
-                    }
+//                    for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
+//                        if (pointCheck(xpos, ypos, mainCanvas.shapeList.get(i))) {
+//                            //  mainCanvas.shapeList.get(i).isSelected = true;
+//                            mainCanvas.shapeList.get(i).toggleSelection();
+//                            System.out.println("Shape" + i + " is set to " + mainCanvas.shapeList.get(i).isSelected);
+//                        }
+//                    }
+                    
+                    //NEW
+                   SelectVisitor visitor = new SelectVisitor(xpos,ypos);
+                  mainCanvas.shapeList.Accept(visitor);
+                    
                 } else if (mainCanvas.getState() == "drag") {
                     System.out.print("Drag state = true");
                 }
@@ -254,19 +259,6 @@ public class GUI {
         });
     }
 
-    /**
-     * Check if a given mouse coordinate falls within the boundaries of a shape.
-     * Used for selecting
-     */
-    boolean pointCheck(int mouseX, int mouseY, baseShape testshape) {
-
-        if (mouseX > testshape.x && mouseX < testshape.x + testshape.width
-                && mouseY > testshape.y && mouseY < testshape.y + testshape.height) {
-            System.out.println("Selected a shape");
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Draws rectangles or circles depending on the given parameters
@@ -331,12 +323,14 @@ public class GUI {
     // Gets all the selected shapes
     ArrayList<baseShape> getSelected() {
         ArrayList<baseShape> movelist = new ArrayList();
-        for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
-            if (mainCanvas.shapeList.get(i).isSelected) {
-                movelist.add(mainCanvas.shapeList.get(i));
-
-            }
-        }
+//        for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
+//            if (mainCanvas.shapeList.get(i).isSelected) {
+//                movelist.add(mainCanvas.shapeList.get(i));
+//
+//            }
+//        }
+        GetSelectedVisitor visitor = new GetSelectedVisitor();
+        mainCanvas.shapeList.Accept(visitor);
         return movelist;
     }
 

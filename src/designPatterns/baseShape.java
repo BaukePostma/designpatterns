@@ -13,7 +13,8 @@ import java.awt.Graphics;
  * @author Bauke
  * 
  */
-public abstract class baseShape  implements ShapeContainer {
+// 
+public abstract class baseShape  implements IComposite {
 
     // TODO add getters setters
     int x = 50;
@@ -25,6 +26,10 @@ public abstract class baseShape  implements ShapeContainer {
     String type;
 
     public abstract void Draw(Graphics g);
+    
+    public  void Accept(Visitor visitor){
+        visitor.visit(this);
+    }
 /**
  * Toggles whether or not this shape is selected 
  */
@@ -112,4 +117,12 @@ public abstract class baseShape  implements ShapeContainer {
             //mainCanvas.shapeList.add(shape);
         }
     }
+
+         public void toggleSelection() {
+        this.isSelected = !this.isSelected;
+    }
+         public boolean  isSelected(){
+             return this.isSelected;
+         }
 }
+

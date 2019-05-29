@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @author Bauke
  */
 public class CommandElipse implements ICommand{
-    ArrayList<baseShape> shapelist = null;
+Group shapelist ;
     baseShape shape = null;
     int x,y,width,height = 0;
     
@@ -15,7 +15,7 @@ public class CommandElipse implements ICommand{
      * @param shapelist A reference to the big list of shapes
      * @param q Shape to add to the list
      */
-    public CommandElipse(ArrayList<baseShape> shapelist,baseShape q){
+    public CommandElipse(Group shapelist,baseShape q){
         //Hopefully store a reference to the canvas so we can acces the shapelist
         this.shapelist = shapelist;
         this.shape = q;
@@ -27,12 +27,16 @@ public class CommandElipse implements ICommand{
 
     @Override
     public void Execute() {
-        shapelist.add(shape);
+      //  Rectangle rect = new Rectangle(x,y,width,height);
+        this.shapelist.AddShape(shape);
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void Undo() {
-        shapelist.remove(shapelist.size()-1);
-    }  
+        shapelist.RemooveShape(shape);
+      //  shapelist.RemoveShape(shapelist.size()-1);
+     //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

@@ -12,8 +12,8 @@ import java.util.ArrayList;
  *
  * @author Bauke
  */
-public class Group implements ShapeContainer {
-    ArrayList<ShapeContainer> childshapes ;
+public class Group  implements IComposite {
+    ArrayList<IComposite> childshapes ;
 
     public Group(){
         this.childshapes = new ArrayList<>();
@@ -21,23 +21,32 @@ public class Group implements ShapeContainer {
     
         @Override
     public void drawShapes(Graphics g) {
-            for (ShapeContainer shape: childshapes){
+            for (IComposite shape: childshapes){
                 shape.drawShapes(g);
             }
     }
-    public void AddShape(ShapeContainer newshape){
+    public void AddShape(IComposite newshape){
         this.childshapes.add(newshape);
+    }
+    public void RemooveShape(IComposite newshape){
+        this.childshapes.remove(newshape);
     }
     public void toggleSelection(){
         
     }
 
-    @Override
-    public ArrayList<ShapeContainer> ReturnSelectedShapes(int x, int y) {
-      ArrayList<ShapeContainer> shapelist = new ArrayList<ShapeContainer>() ;
-        ArrayList<ShapeContainer> shapelist = this.childshapes.ReturnSelectedShapes(x,y));
-              shapelist.add(this.childshapes.ReturnSelectedShapes(x,y));
-        
 
+    public void Draw(Graphics g) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void Accept(Visitor visitor) {
+       visitor.visit(this);
+    }
+
+    @Override
+    public boolean isSelected() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

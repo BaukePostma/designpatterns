@@ -43,18 +43,5 @@ public class Rectangle extends baseShape{
     public void drawShapes(Graphics g) {
         g.drawRect(x, y, width, height);
     }
-        @Override
-    public void toggleSelection() {
-        this.isSelected = !this.isSelected;
-    }
-
-    @Override
-    public ArrayList<ShapeContainer> ReturnSelectedShapes(int x, int y) {
-        ArrayList<ShapeContainer> single = new ArrayList<ShapeContainer>();
-        if (this.isSelected) {
-            single.add(this);
-        }
-        return single;
-    }
 
 }

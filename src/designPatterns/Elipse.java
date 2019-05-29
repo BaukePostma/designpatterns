@@ -15,7 +15,7 @@ import javax.swing.JPanel;
  *
  * @author Bemi
  */
-public class Elipse extends baseShape implements ShapeContainer{
+public class Elipse extends baseShape implements IComposite{
 
     public Elipse(int x, int y, int width, int height) {
         this.x = x;
@@ -47,18 +47,8 @@ public class Elipse extends baseShape implements ShapeContainer{
      g.drawOval(x, y, width, height);
     }
 
-    @Override
-    public void toggleSelection() {
-        this.isSelected = !this.isSelected;
-    }
+
     
-    @Override
-    public ArrayList<ShapeContainer> ReturnSelectedShapes(int x, int y) {
-        ArrayList<ShapeContainer> single = new ArrayList<ShapeContainer>();
-        if (this.isSelected) {
-            single.add(this);
-        }
-        return single;
-    }
+  
 
 }
