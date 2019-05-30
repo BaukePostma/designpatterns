@@ -21,11 +21,11 @@ public abstract class baseShape  implements IComposite {
     int y = 50;
     int width = 50;
     int height = 50;
-    boolean isSelected =false;
+boolean isSelected =false;
     int scale = 100;
     String type;
 
-    public abstract void Draw(Graphics g);
+ //   public abstract void Draw(Graphics g);
     
     public  void Accept(Visitor visitor){
         visitor.visit(this);
@@ -41,38 +41,7 @@ public abstract class baseShape  implements IComposite {
  * @param ystart    mouseY start position
  * @param yend      mouseY end position
  */
-    public void Rescale(int xstart, int xend, int ystart, int yend) {
 
-        //    int scalefactor = 1;
-        // Get the coordinates of the center of the shape
-        int centerx = this.x + (width / 2);
-        int centery = this.x + (height / 2);
-
-        int xdiff = xend - xstart;
-        int ydiff = yend - ystart;
-
-        // Invert scaling if the movement happend higher and to the left of the shape
-        if (xend < centerx) {
-            int test = xdiff / 2;
-            this.width -= xdiff;
-            this.x += test;
-        } else {
-            int test = xdiff / 2;
-            this.width += xdiff;
-            this.x -= test;
-        }
-
-        if (yend < centery) {
-            int testy = ydiff / 2;
-            this.height -= ydiff;
-            this.y += testy;
-        } else {
-            int testy = ydiff / 2;
-            this.height += ydiff;
-            this.y -= testy;
-        }
-
-    }
 
     //Sets a minimum shape for every shape, to make sure it's still visible
     public void SetMinSize() {

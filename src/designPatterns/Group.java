@@ -30,7 +30,7 @@ public class Group  implements IComposite {
     public void AddShape(IComposite newshape){
         this.childshapes.add(newshape);
     }
-    public void RemooveShape(IComposite newshape){
+    public void RemoveShape(IComposite newshape){
         this.childshapes.remove(newshape);
     }
 
@@ -40,11 +40,25 @@ public class Group  implements IComposite {
 
     @Override
     public void Accept(Visitor visitor) {
+        
        visitor.visit(this);
     }
 
     @Override
     public boolean isSelected() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.isSelected;
+    }
+        @Override
+    public ArrayList<IComposite> getSelected() {
+           ArrayList<IComposite> groupselected = new ArrayList<IComposite>();
+        for(IComposite shape : childshapes){
+            if(shape.isSelected()){
+                    groupselected.addAll(  shape.getSelected());
+            }
+        
+        }
+
+        //single.add(this);
+        return groupselected;
     }
 }

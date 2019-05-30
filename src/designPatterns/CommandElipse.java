@@ -34,7 +34,7 @@ Group shapelist ;
 
     @Override
     public void Undo() {
-        shapelist.RemooveShape(shape);
+        shapelist.RemoveShape(shape);
       //  shapelist.RemoveShape(shapelist.size()-1);
      //   throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

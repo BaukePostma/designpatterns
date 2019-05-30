@@ -30,18 +30,26 @@ public class Rectangle extends baseShape{
      *  Overrride the draw function, geps passed the graphics object, calls the draw function to draw itself
      * @param g Magical graphics object
      */
-    @Override
-    public void Draw(Graphics g) {
-        //       super.paintComponent(g);
-        // Retrieve the graphics context; this object is used to paint shapes
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.drawRect(x, y, width, height);
-        //  g2d.scale(5, 5);
-    }
+//    @Override
+//    public void Draw(Graphics g) {
+//        //       super.paintComponent(g);
+//        // Retrieve the graphics context; this object is used to paint shapes
+//        Graphics2D g2d = (Graphics2D) g;
+//        g2d.drawRect(x, y, width, height);
+//        //  g2d.scale(5, 5);
+//    }
 
     @Override
     public void drawShapes(Graphics g) {
         g.drawRect(x, y, width, height);
+    }
+    
+        @Override
+    public ArrayList<IComposite> getSelected() {
+    
+        ArrayList<IComposite> single = new ArrayList<IComposite>();
+        single.add(this);
+        return single;
     }
 
 }

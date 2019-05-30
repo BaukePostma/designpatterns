@@ -21,20 +21,20 @@ public class SelectVisitor implements Visitor{
     @Override
     public void visit(Group group) {
          System.out.print("Visiting group");
-        group.isSelected = false;
+        group.isSelected = !group.isSelected;
         for (IComposite shape:group.childshapes){
             shape.Accept(this);
         }
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void visit(baseShape shape) {
       // Logic to check if the visiting shape should be selected
-    System.out.print("Visiting baseShape");
+    System.out.println("Visiting baseShape");
       if (pointCheck(MouseX, MouseY, shape)){
           shape.isSelected = ! shape.isSelected;
       }
+    
     }
     
         /**

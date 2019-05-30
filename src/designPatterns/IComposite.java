@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public interface IComposite {
 
     void drawShapes(Graphics g);
+    public ArrayList<IComposite> getSelected();
 
     void Accept(Visitor visitor);
     boolean isSelected();

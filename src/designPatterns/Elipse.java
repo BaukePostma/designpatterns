@@ -26,15 +26,15 @@ public class Elipse extends baseShape implements IComposite{
     }
 
     // Overrride the draw function, geps passed the graphics object, calls the draw function to draw itself
-    @Override
-    public void Draw(Graphics g) {
-
-        // Retrieve the graphics context; this object is used to paint shapes
-        Graphics2D g2d = (Graphics2D) g;
-
-        g2d.drawOval(x, y, width, height);
-
-    }
+//    @Override
+//    public void Draw(Graphics g) {
+//
+//        // Retrieve the graphics context; this object is used to paint shapes
+//        Graphics2D g2d = (Graphics2D) g;
+//
+//        g2d.drawOval(x, y, width, height);
+//
+//    }
 
     public void paintComponent(Graphics g) {
 
@@ -45,6 +45,13 @@ public class Elipse extends baseShape implements IComposite{
     public void drawShapes(Graphics g) {
         
      g.drawOval(x, y, width, height);
+    }
+
+    @Override
+    public ArrayList<IComposite> getSelected() {
+        ArrayList<IComposite> single = new ArrayList<IComposite>();
+        single.add(this);
+        return single;
     }
 
 

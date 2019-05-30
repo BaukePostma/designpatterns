@@ -94,7 +94,22 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Action4 performed");
-                mainCanvas.setState("group");
+              //  mainCanvas.setState("group");
+              
+              //Testshape
+                 // baseShape q = drawShape("rectangle", 50, 50, 50, 50);
+                  //ArrayList<IComposite> AddTo= new ArrayList<IComposite>(); 
+                  //AddTo.add(q);
+                  
+                    //  CommandRectangle commandR = new CommandRectangle(mainCanvas.shapeList,q);
+                      //invoker.AddAction(commandR);
+                      
+               ArrayList<IComposite> AddTo = mainCanvas.shapeList.getSelected();
+              CommandGroup command = new CommandGroup(mainCanvas.shapeList,AddTo);
+              invoker.AddAction(command);
+              mainCanvas.repaint();
+               
+                
             }
 
         });
@@ -230,7 +245,8 @@ public class GUI {
                     int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
                     //startDrag(xdiff, ydiff);
-                    invoker.AddAction(new CommandDrag(getSelected(),xdiff,ydiff));
+                   
+                    invoker.AddAction(new CommandDrag(mainCanvas.shapeList,xdiff,ydiff));
                    // CommandDrag command = new CommandDrag(getSelected(),xdiff,ydiff);
                     //CommandHistory.add(command);
                //     command.Execute();
@@ -240,8 +256,8 @@ public class GUI {
                     int xdiff = xend - xpos;
                     int ydiff = yend - ypos;
                     //scaleShape(xpos, xend, ypos, yend);
-                    invoker.AddAction(new CommandScale(getSelected(),xpos,xend,ypos,yend));
-                    CommandScale command = new CommandScale(getSelected(),xpos,xend,ypos,yend);
+                    invoker.AddAction(new CommandScale(mainCanvas.shapeList,xpos,xend,ypos,yend));
+                   // CommandScale command = new CommandScale(getSelected(),xpos,xend,ypos,yend);
                   //  CommandHistory.add(command);
                     //command.Execute();
                 }
@@ -299,60 +315,39 @@ public class GUI {
     }
 
     //Gets called from a mouse-drag. Calls the scale function of individual componenets
-    public void scaleShape(int xstart, int xend, int ystart, int yend) {
-
-        ArrayList<baseShape> scaled = getSelected();
-        for (baseShape shape : scaled) {
-            shape.Rescale(xstart, xend, ystart, yend);
-        }
-    }
+//    public void scaleShape(int xstart, int xend, int ystart, int yend) {
+//
+//        ArrayList<baseShape> scaled = getSelected();
+//        for (baseShape shape : scaled) {
+//            shape.Rescale(xstart, xend, ystart, yend);
+//        }
+//    }
 
     // Moves selected shapes by the mouse offset
-    void startDrag(int x, int y) {
-        // Keep track of all the selected 
-        ArrayList<baseShape> dragged = getSelected();
-        for (baseShape shape : dragged) {
-            System.out.println("Old " + shape.x);
-            shape.x += x;
-            shape.y += y;
-            System.out.println("New  " + shape.x);
-        }
-        mainCanvas.repaint();
-    }
+//    void startDrag(int x, int y) {
+//        // Keep track of all the selected 
+//        ArrayList<baseShape> dragged = getSelected();
+//        for (baseShape shape : dragged) {
+//            System.out.println("Old " + shape.x);
+//            shape.x += x;
+//            shape.y += y;
+//            System.out.println("New  " + shape.x);
+//        }
+//        mainCanvas.repaint();
+//    }
 
     // Gets all the selected shapes
-    ArrayList<baseShape> getSelected() {
-        ArrayList<baseShape> movelist = new ArrayList();
-//        for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
-//            if (mainCanvas.shapeList.get(i).isSelected) {
-//                movelist.add(mainCanvas.shapeList.get(i));
-//
-//            }
-//        }
-        GetSelectedVisitor visitor = new GetSelectedVisitor();
-        mainCanvas.shapeList.Accept(visitor);
-        return movelist;
-    }
+//    ArrayList<baseShape> getSelected() {
+//        ArrayList<baseShape> movelist = new ArrayList();
+////        for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
+////            if (mainCanvas.shapeList.get(i).isSelected) {
+////                movelist.add(mainCanvas.shapeList.get(i));
+////
+////            }
+////        }
+//        GetSelectedVisitor visitor = new GetSelectedVisitor();
+//        mainCanvas.shapeList.Accept(visitor);
+//        return movelist;
+//    }
 
-    
-
-}
-
-// TEST TES TEST 
-class SampleMenuListener implements MenuListener {
-
-    @Override
-    public void menuSelected(MenuEvent e) {
-        System.out.println("menuSelected");
-    }
-
-    @Override
-    public void menuDeselected(MenuEvent e) {
-        System.out.println("menuDeselected");
-    }
-
-    @Override
-    public void menuCanceled(MenuEvent e) {
-        System.out.println("menuCanceled");
-    }
 }
