@@ -21,7 +21,7 @@ public abstract class baseShape  implements IComposite {
     int y = 50;
     int width = 50;
     int height = 50;
-    boolean isSelected = false;
+    boolean isSelected =false;
     int scale = 100;
     String type;
 
@@ -118,9 +118,7 @@ public abstract class baseShape  implements IComposite {
         }
     }
 
-         public void toggleSelection() {
-        this.isSelected = !this.isSelected;
-    }
+       
          public boolean  isSelected(){
              return this.isSelected;
          }

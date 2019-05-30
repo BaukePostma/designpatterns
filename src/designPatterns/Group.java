@@ -14,9 +14,11 @@ import java.util.ArrayList;
  */
 public class Group  implements IComposite {
     ArrayList<IComposite> childshapes ;
+    boolean isSelected;
 
     public Group(){
         this.childshapes = new ArrayList<>();
+        this.isSelected = false;
     }
     
         @Override
@@ -31,10 +33,6 @@ public class Group  implements IComposite {
     public void RemooveShape(IComposite newshape){
         this.childshapes.remove(newshape);
     }
-    public void toggleSelection(){
-        
-    }
-
 
     public void Draw(Graphics g) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
