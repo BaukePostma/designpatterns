@@ -1,3 +1,6 @@
-Rectangle 50 50 50 50 
-Rectangle 77 314 105 81 
-Rectangle 314 161 0 0 
+Group 2
+		Rectangle 185 240 76 34 
+		Group 0
+		Rectangle 167 117 0 0 
+		Group 1
+		Rectangle 98 78 117 83 

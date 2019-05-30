@@ -23,6 +23,7 @@ public class CommandGroup implements ICommand{
     @Override
     public void Execute() {
             Group newGroup = new Group();
+            newGroup.isSelected = true;
         // Add the new group to the shapelist. Remove the old references from the shapelist
         
         //TES THIS

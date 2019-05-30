@@ -20,18 +20,16 @@ public class Saver {
      * @param shapelist
      */
     void Save(Group shapelist, String fileName) throws IOException {
-        FileWriter fileWriter = new FileWriter(fileName);
+        
+           FileWriter fileWriter = new FileWriter(fileName);
         PrintWriter printWriter = new PrintWriter(fileWriter);
+        
+        SaveVisitor visitor = new SaveVisitor(printWriter);
+        shapelist.Accept(visitor);
+        
+     
 
-//        for (baseShape shape : shapelist) {
-//            printWriter.println(
-//                    shape.type + " "
-//                    + shape.x + " "
-//                    + shape.y + " "
-//                    + shape.width + " "
-//                    + shape.height + " "
-//            );
-//        }
+        
         printWriter.close();
     }
 

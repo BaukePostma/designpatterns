@@ -24,7 +24,10 @@ public class DragVisitor implements Visitor {
         System.out.println("Dragvisitor group called");
 
                   for (IComposite shape:group.childshapes){
-            shape.Accept(this);
+                      if (shape.isSelected()){
+                           shape.Accept(this);
+                      }
+           
         }
         //group.Accept(this);
       //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

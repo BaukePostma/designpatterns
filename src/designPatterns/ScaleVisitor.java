@@ -26,7 +26,10 @@ public class ScaleVisitor implements Visitor {
     @Override
     public void visit(Group group) {
         for (IComposite shape : group.childshapes) {
-            shape.Accept(this);
+            if(shape.isSelected()){
+                 shape.Accept(this);
+            }
+           
         }
     }
 
@@ -34,7 +37,7 @@ public class ScaleVisitor implements Visitor {
     public void visit(baseShape shape) {
         // Scale this shape
         Rescale(shape,xstart,xend,ystart,yend);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
     
         public void Rescale(baseShape shape,int xstart, int xend, int ystart, int yend) {
