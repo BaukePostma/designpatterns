@@ -26,11 +26,18 @@ public class Group implements IComposite {
             shape.drawShapes(g);
         }
     }
-
+/**
+ * Add a composite to this group
+ * @param newshape 
+ */
     public void AddShape(IComposite newshape) {
         this.childshapes.add(newshape);
     }
 
+    /**
+     * Remove a specific component from this group
+     * @param newshape 
+     */
     public void RemoveShape(IComposite newshape) {
         this.childshapes.remove(newshape);
     }
@@ -46,7 +53,7 @@ public class Group implements IComposite {
     }
 /**
  * Returns a list of all the  nodes that are selected
- * @return 
+ * @return Groups and shapes
  */
     @Override
     public ArrayList<IComposite> getSelected() {
