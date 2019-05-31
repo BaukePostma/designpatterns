@@ -8,7 +8,7 @@ package designPatterns;
 import java.util.ArrayList;
 
 /**
- *
+ * Invoker class keeps track of the history and exectues commands sent to it.
  * @author Bauke
  */
 public class Invoker {
@@ -16,13 +16,14 @@ public class Invoker {
     ArrayList<ICommand> CommandHistory = new ArrayList<ICommand>();
     int undocount = 0;
 
-    public void AddAction(ICommand c){
+    public void AddAction(ICommand c) {
         ClearHistory();
         CommandHistory.add(c);
         c.Execute();
     }
+
     public void DoAction() {
-        
+
         if (undocount > 0) {
             CommandHistory.get(CommandHistory.size() - undocount).Execute();
             undocount--;

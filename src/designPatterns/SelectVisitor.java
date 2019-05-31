@@ -6,7 +6,7 @@
 package designPatterns;
 
 /**
- *
+ * Handles the toggleing of the select boolean of the various groups and shapes
  * @author Bauke
  */
 public class SelectVisitor implements Visitor{
@@ -20,7 +20,6 @@ public class SelectVisitor implements Visitor{
     }
     @Override
     public void visit(Group group) {
-         System.out.print("Visiting group");
         group.isSelected = !group.isSelected;
         for (IComposite shape:group.childshapes){
             shape.Accept(this);
@@ -29,16 +28,13 @@ public class SelectVisitor implements Visitor{
 
     @Override
     public void visit(baseShape shape) {
-      // Logic to check if the visiting shape should be selected
-    System.out.println("Visiting baseShape");
       if (pointCheck(MouseX, MouseY, shape)){
           shape.isSelected = ! shape.isSelected;
       }
-    
     }
     
         /**
-     * Check if a given mouse coordinate falls within the boundaries of a shape.
+     * Check if a  mouse coordinate falls within the boundaries of a shape.
      * Used for selecting
      */
     boolean pointCheck(int mouseX, int mouseY, baseShape testshape) {

@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package designPatterns;
 
 /**
- *
+ * ScaleVisitor handles the scaling of groups and objects
  * @author Bauke
  */
 public class ScaleVisitor implements Visitor {
@@ -39,7 +34,15 @@ public class ScaleVisitor implements Visitor {
         Rescale(shape,xstart,xend,ystart,yend);
     
     }
-    
+    /**
+     *  Handles the rescale calculations depnidng on mouse cursor position and movement
+     * 
+     * @param shape The shape to scale
+     * @param xstart Mouse X start position
+     * @param xend Mouse X end position
+     * @param ystart Mouse Y start  position
+     * @param yend  Mouse Y end position
+     */
         public void Rescale(baseShape shape,int xstart, int xend, int ystart, int yend) {
 
         //    int scalefactor = 1;

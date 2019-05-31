@@ -6,7 +6,7 @@
 package designPatterns;
 
 /**
- *
+ * Base visitor interface
  * @author Bauke
  */
 public interface Visitor {

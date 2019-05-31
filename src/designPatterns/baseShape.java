@@ -8,7 +8,7 @@ package designPatterns;
 import java.awt.Graphics;
 
 /**
- * baseShape for all shapes
+ * Abstract base class  for all shapes
  *
  * @author Bauke
  * 

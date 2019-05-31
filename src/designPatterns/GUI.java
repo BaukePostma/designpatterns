@@ -151,14 +151,14 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Action8 performed");
                 Saver q = new Saver();
-//                try {
-//                    // mainCanvas.shapeList = null;
-//                    mainCanvas.shapeList = q.Load("Testsave.txt");
-//                    mainCanvas.repaint();
-//                    //Load
-//                } catch (IOException ex) {
-//                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                try {
+                    // mainCanvas.shapeList = null;
+                    mainCanvas.shapeList = q.Load("Testsave.txt");
+                    mainCanvas.repaint();
+                    //Load
+                } catch (IOException ex) {
+                    Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
         });

@@ -1,7 +1,11 @@
-Group 0
-	Group 2
-		Rectangle 97 13 141 99 
-		Rectangle 66 136 121 80 
-		Group 2
-			Rectangle 97 13 141 99 
-			Rectangle 66 136 121 80 
+group 0
+	group 3
+		rectangle 71 86 149 127 
+		rectangle 272 115 122 112 
+		rectangle 94 236 196 136 
+		group 5
+			rectangle 71 86 149 127 
+			rectangle 272 115 122 112 
+			rectangle 94 236 196 136 
+			elipse 334 231 48 50 
+			elipse 336 342 58 47 

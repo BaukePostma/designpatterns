@@ -15,7 +15,6 @@ public class CommandDrag implements ICommand {
     int y;
 
     /**
-     *
      * @param dragged List of all the selected shapes
      * @param x values to move x by
      * @param y values to move y by
@@ -24,7 +23,6 @@ public class CommandDrag implements ICommand {
         this.dragged = dragged;
         this.x = x;
         this.y = y;
-
     }
 
     @Override
@@ -40,5 +38,3 @@ public class CommandDrag implements ICommand {
         dragged.Accept(visitor);
     }
 }
-
-

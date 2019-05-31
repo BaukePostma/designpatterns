@@ -24,9 +24,8 @@ public class CommandGroup implements ICommand{
     public void Execute() {
             Group newGroup = new Group();
             newGroup.isSelected = true;
-        // Add the new group to the shapelist. Remove the old references from the shapelist
         
-        //TES THIS
+        //TODO: TEST THIS
         for(IComposite shape :freshShapes){
                shapelist.RemoveShape(shape);
                  newGroup.AddShape(shape);

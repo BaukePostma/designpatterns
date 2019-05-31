@@ -48,13 +48,8 @@ public class CommandScale implements ICommand {
 
     @Override
     public void Execute() {
-        //  Rectangle rect = new Rectangle(x,y,width,height);
-//        for (baseShape shape : scaled) {
-//            shape.Rescale(xstart, xend, ystart, yend);
-//        }
         ScaleVisitor visitor = new ScaleVisitor(xstart, xend, ystart, yend);
         scaled.Accept(visitor);
-        // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

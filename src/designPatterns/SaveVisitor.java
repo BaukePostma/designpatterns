@@ -22,7 +22,7 @@ public class SaveVisitor implements Visitor{
     @Override
     public void visit(Group group) {
      
-        pw.println("Group " + getConcreteShapeCount(group));
+        pw.println("group " + getConcreteShapeCount(group));
         tabstring = tabstring + "\t";
           for (IComposite shape : group.childshapes) {
               pw.print(tabstring);

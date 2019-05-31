@@ -1,4 +1,3 @@
-
 package designPatterns;
 
 import java.io.BufferedReader;
@@ -10,60 +9,66 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
- *  Contains the save and load functions
+ * Contains the save and load functions
+ *
  * @author Bauke
  */
 public class Saver {
 
     /**
-     * Takes a shapelist, stores it as a file. right now  only saves shapes
+     * Creates a new savevisitor to go over the Composite and passes the
+     * printwriter to the visitor
+     *
      * @param shapelist
      */
     void Save(Group shapelist, String fileName) throws IOException {
-        
-           FileWriter fileWriter = new FileWriter(fileName);
+
+        FileWriter fileWriter = new FileWriter(fileName);
         PrintWriter printWriter = new PrintWriter(fileWriter);
-        
+
         SaveVisitor visitor = new SaveVisitor(printWriter);
         shapelist.Accept(visitor);
-        
-     
 
-        
         printWriter.close();
     }
 
     /**
-     * Returns the data
+     * Reads a textfile, returns the shapelist (The main group where all the
+     * shapes and groups are stored)
      */
-    ArrayList<baseShape> Load(String fileName) throws FileNotFoundException, IOException {
-        ArrayList<baseShape> shapelist = new ArrayList<baseShape>();
+    Group Load(String fileName) throws FileNotFoundException, IOException {
 
+        Group shapelist = new Group();
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String line;
+        Group newgroup = new Group();
+
         while ((line = reader.readLine()) != null) {
             String[] words = line.split(" ");
             switch (words[0]) {
-                case "Rectangle":
+
+                case "rectangle":
                     Rectangle rect = new Rectangle(
                             Integer.parseInt(words[1]),
                             Integer.parseInt(words[2]),
                             Integer.parseInt(words[3]),
                             Integer.parseInt(words[4])
                     );
-                    shapelist.add(rect);
+                    newgroup.AddShape(rect);
                     break;
-                case "Elipse:":
+                case "elipse:":
                     Elipse el = new Elipse(
                             Integer.parseInt(words[1]),
                             Integer.parseInt(words[2]),
                             Integer.parseInt(words[3]),
                             Integer.parseInt(words[4])
                     );
-                    shapelist.add(el);
+                    newgroup.AddShape(el);
                     break;
                 default:
-                    System.out.print("crap");
+                    shapelist.AddShape(newgroup);
+                    newgroup = new Group();
+                    System.out.print("It's a group");
 
             }
         }

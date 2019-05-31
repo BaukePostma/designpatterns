@@ -9,16 +9,18 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- * Composite pattern interface. Rename this?
+ * Composite pattern interface.
+ *
  * @author Bauke
  */
 public interface IComposite {
 
     void drawShapes(Graphics g);
+
     public ArrayList<IComposite> getSelected();
 
     void Accept(Visitor visitor);
+
     boolean isSelected();
-   // public void toggleSelection();
- 
+
 }
