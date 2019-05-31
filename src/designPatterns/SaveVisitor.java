@@ -13,17 +13,19 @@ import java.io.PrintWriter;
  */
 public class SaveVisitor implements Visitor{
     PrintWriter pw;
+    String tabstring;
     public SaveVisitor(PrintWriter pw){
         this.pw=pw;
+        this.tabstring ="";
     }
 
     @Override
     public void visit(Group group) {
      
         pw.println("Group " + getConcreteShapeCount(group));
-        
+        tabstring = tabstring + "\t";
           for (IComposite shape : group.childshapes) {
-              pw.print("\t\t");
+              pw.print(tabstring);
                  shape.Accept(this);
            
         }

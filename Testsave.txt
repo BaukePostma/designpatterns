@@ -1,6 +1,7 @@
-Group 2
-		Rectangle 185 240 76 34 
-		Group 0
-		Rectangle 167 117 0 0 
-		Group 1
-		Rectangle 98 78 117 83 
+Group 0
+	Group 2
+		Rectangle 97 13 141 99 
+		Rectangle 66 136 121 80 
+		Group 2
+			Rectangle 97 13 141 99 
+			Rectangle 66 136 121 80 

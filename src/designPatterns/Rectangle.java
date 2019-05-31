@@ -23,7 +23,7 @@ public class Rectangle extends baseShape{
         this.y = y;
         this.width = width;
         this.height = height;
-        this.type = "Rectangle";
+        this.type = "rectangle";
     }
 
     /**
