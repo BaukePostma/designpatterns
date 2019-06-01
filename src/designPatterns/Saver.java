@@ -41,8 +41,8 @@ public class Saver {
         Group shapelist = new Group();
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
         String line;
-        Group newgroup = new Group();
-
+        Group newgroup = null; 
+        int groupcount = 0;
         while ((line = reader.readLine()) != null) {
             String[] words = line.split(" ");
             switch (words[0]) {
@@ -54,8 +54,14 @@ public class Saver {
                             Integer.parseInt(words[3]),
                             Integer.parseInt(words[4])
                     );
-                    newgroup.AddShape(rect);
+                    if (groupcount > 0) {
+                        newgroup.AddShape(rect);
+                    } else {
+                        shapelist.AddShape(rect);
+                    }
+
                     break;
+                    
                 case "elipse:":
                     Elipse el = new Elipse(
                             Integer.parseInt(words[1]),
@@ -63,10 +69,23 @@ public class Saver {
                             Integer.parseInt(words[3]),
                             Integer.parseInt(words[4])
                     );
-                    newgroup.AddShape(el);
+                    if (groupcount > 0) {
+                        newgroup.AddShape(el);
+                    } else {
+                        shapelist.AddShape(el);
+                    }
+
                     break;
+                    
                 default:
-                    shapelist.AddShape(newgroup);
+                    if(newgroup == null){
+                        // If true, this is the first group at the top of the tree 
+                        newgroup = new Group();
+                    }else{
+                             shapelist.AddShape(newgroup);
+                    }
+               
+                    groupcount = Integer.parseInt(words[1]);
                     newgroup = new Group();
                     System.out.print("It's a group");
 

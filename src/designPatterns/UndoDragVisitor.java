@@ -23,7 +23,9 @@ public class UndoDragVisitor implements Visitor{
     public void visit(Group group) {
 
        for (IComposite shape:group.childshapes){
-            shape.Accept(this);
+                                if (shape.isSelected()){
+                           shape.Accept(this);
+                      }
         }
 
     }
