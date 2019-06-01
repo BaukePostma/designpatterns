@@ -32,12 +32,12 @@ public class Canvas extends JPanel {
     }
 
     /**
-     * The main drawing loop. Renders all the shapes in shpeList composite.
+     * The main drawing loop. Renders all the shapes in shpeList composite. This is where the magical graphics object comes from
      *
      * @param g magical graphics object
      */
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        shapeList.drawShapes(g);
+        shapeList.Draw(g);
     }
 }

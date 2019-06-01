@@ -225,16 +225,17 @@ public class GUI {
                 yend = e.getY();
                 if (mainCanvas.getState() == "rectangle") {
                     //ClearHistory(undocount);
-                    baseShape q = drawShape("rectangle", xpos, ypos, xend, yend);
-                    invoker.AddAction(new CommandRectangle(mainCanvas.shapeList, q));
+                    //baseShape q = drawShape("rectangle", xpos, ypos, xend, yend);
+                    //baseShape q = new baseShape
+                    invoker.AddAction(new CommandRectangle(mainCanvas.shapeList, xpos,ypos,xend,yend));
                    
                    // CommandHistory.add(command);
                     //command.Execute();
                     
                 } else if (mainCanvas.getState() == "circle") {
                      //Cl//earHistory(undocount);
-                    baseShape q = drawShape("circle",xpos,ypos,xend,yend);
-                    invoker.AddAction(new CommandElipse(mainCanvas.shapeList,q));
+                    //baseShape q = drawShape("circle",xpos,ypos,xend,yend);
+                    invoker.AddAction(new CommandElipse(mainCanvas.shapeList, xpos,ypos,xend,yend));
                     //CommandElipse command  = );
                    // CommandHistory.add(command);
                    // command.Execute();
@@ -273,45 +274,6 @@ public class GUI {
                 //System.out.print("Mouse moved");
             }
         });
-    }
-
-
-    /**
-     * Draws rectangles or circles depending on the given parameters
-*
-     */
-    baseShape drawShape(String type, int xpos, int ypos, int xend, int yend) {
-        int width = xend - xpos;
-        int height = yend - ypos;
-        // Draai width & height om zodat ze altijd positief zijn
-        if (width < 0) {
-            width = width * -1;
-        }
-        if (height < 0) {
-            height = height * -1;
-        }
-        int lowestX;
-        if (xpos < xend) {
-            lowestX = xpos;
-        } else {
-            lowestX = xend;
-        }
-        int lowestY;
-        if (ypos < yend) {
-            lowestY = ypos;
-        } else {
-            lowestY = yend;
-        }
-        if (type == "circle") {
-            Elipse shape = new Elipse(lowestX, lowestY, width, height);
-            return shape;
-            //mainCanvas.shapeList.add(shape);
-
-        } else {
-            Rectangle shape = new Rectangle(lowestX, lowestY, width, height);
-            return shape;
-            //mainCanvas.shapeList.add(shape);
-        }
     }
 
     //Gets called from a mouse-drag. Calls the scale function of individual componenets

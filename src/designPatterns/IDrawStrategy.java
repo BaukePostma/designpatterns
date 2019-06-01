@@ -6,21 +6,17 @@
 package designPatterns;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 /**
- * Composite pattern interface.
  *
  * @author Bauke
  */
-public interface IComposite {
-public void Draw(Graphics g);
+public interface IDrawStrategy {
 
-    public ArrayList<IComposite> getSelected();
+    void Draw(Graphics g, int x, int y, int width, int height);
 
-    void Accept(Visitor visitor);
-    
+    @Override
+    public String toString();
 
-    boolean isSelected();
 
 }

@@ -34,7 +34,7 @@ public class CommandScale implements ICommand {
         ArrayList<IComposite> selected = shapelist.getSelected();
         selectedShapes = new ArrayList<baseShape>();
         for (IComposite item : selected) {
-            if (item instanceof Rectangle || item instanceof Elipse) {
+            if (item instanceof baseShape) {
                 selectedShapes.add((baseShape) item);
             }
         }

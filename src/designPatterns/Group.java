@@ -20,10 +20,10 @@ public class Group implements IComposite {
  * Gets called from the Canvas object when  Java decides it's time to update the canvas. 
  * @param g Magical graphics object
  */
-    @Override
-    public void drawShapes(Graphics g) {
+
+    public void Draw(Graphics g) {
         for (IComposite shape : childshapes) {
-            shape.drawShapes(g);
+            shape.Draw(g);
         }
     }
 /**
