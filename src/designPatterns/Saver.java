@@ -45,51 +45,51 @@ public class Saver {
         int groupcount = 0;
         while ((line = reader.readLine()) != null) {
             String[] words = line.split(" ");
-            switch (words[0]) {
-
-                case "rectangle":
-                    Rectangle rect = new Rectangle(
-                            Integer.parseInt(words[1]),
-                            Integer.parseInt(words[2]),
-                            Integer.parseInt(words[3]),
-                            Integer.parseInt(words[4])
-                    );
-                    if (groupcount > 0) {
-                        newgroup.AddShape(rect);
-                    } else {
-                        shapelist.AddShape(rect);
-                    }
-
-                    break;
-                    
-                case "elipse:":
-                    Elipse el = new Elipse(
-                            Integer.parseInt(words[1]),
-                            Integer.parseInt(words[2]),
-                            Integer.parseInt(words[3]),
-                            Integer.parseInt(words[4])
-                    );
-                    if (groupcount > 0) {
-                        newgroup.AddShape(el);
-                    } else {
-                        shapelist.AddShape(el);
-                    }
-
-                    break;
-                    
-                default:
-                    if(newgroup == null){
-                        // If true, this is the first group at the top of the tree 
-                        newgroup = new Group();
-                    }else{
-                             shapelist.AddShape(newgroup);
-                    }
-               
-                    groupcount = Integer.parseInt(words[1]);
-                    newgroup = new Group();
-                    System.out.print("It's a group");
-
-            }
+//            switch (words[0]) {
+//
+//                case "rectangle":
+//                    Rectangle rect = new Rectangle(
+//                            Integer.parseInt(words[1]),
+//                            Integer.parseInt(words[2]),
+//                            Integer.parseInt(words[3]),
+//                            Integer.parseInt(words[4])
+//                    );
+//                    if (groupcount > 0) {
+//                        newgroup.AddShape(rect);
+//                    } else {
+//                        shapelist.AddShape(rect);
+//                    }
+//
+//                    break;
+//                    
+//                case "elipse:":
+//                    Elipse el = new Elipse(
+//                            Integer.parseInt(words[1]),
+//                            Integer.parseInt(words[2]),
+//                            Integer.parseInt(words[3]),
+//                            Integer.parseInt(words[4])
+//                    );
+//                    if (groupcount > 0) {
+//                        newgroup.AddShape(el);
+//                    } else {
+//                        shapelist.AddShape(el);
+//                    }
+//
+//                    break;
+//                    
+//                default:
+//                    if(newgroup == null){
+//                        // If true, this is the first group at the top of the tree 
+//                        newgroup = new Group();
+//                    }else{
+//                             shapelist.AddShape(newgroup);
+//                    }
+//               
+//                    groupcount = Integer.parseInt(words[1]);
+//                    newgroup = new Group();
+//                    System.out.print("It's a group");
+//
+//            }
         }
         reader.close();
 

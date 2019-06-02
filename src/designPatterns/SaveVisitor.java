@@ -50,7 +50,7 @@ public class SaveVisitor implements Visitor{
         int compcount =0;
         
         for(IComposite item : comp.childshapes){
-        if(item instanceof Rectangle || item instanceof Elipse){
+        if(item instanceof baseShape){
             compcount++;
         }
         }

@@ -19,8 +19,13 @@ public class SelectVisitor implements Visitor{
         this.MouseY = ypos;
     }
     @Override
+    /**
+     * 
+     */
     public void visit(Group group) {
-        group.isSelected = !group.isSelected;
+        
+        
+       group.isSelected = !group.isSelected;
         for (IComposite shape:group.childshapes){
             shape.Accept(this);
         }
