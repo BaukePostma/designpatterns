@@ -24,11 +24,22 @@ public class SelectVisitor implements Visitor{
      */
     public void visit(Group group) {
         
-        
-       group.isSelected = !group.isSelected;
+     
+       // group.isSelected = false;
+   //    group.isSelected = !group.isSelected;
+   
         for (IComposite shape:group.childshapes){
+            boolean orginalselectionstate = shape.isSelected();
+            
             shape.Accept(this);
+            if (shape.isSelected() != orginalselectionstate) {
+                // The shaoe selection has been toggled. Toggle this group as well
+              group.isSelected = !group.isSelected;
+            }
         }
+        
+        System.out.println("Group status: "+ group.isSelected);
+        
     }
 
     @Override
