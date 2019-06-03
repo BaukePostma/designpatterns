@@ -2,10 +2,10 @@ package designPatterns;
 
 import javax.swing.JPanel;
 import java.awt.Graphics;
-import java.util.ArrayList;
 
 /**
- * The canvas that holds and draws the shapes. Singleton
+ * The canvas that holds and draws the shapes. Basically everything below the menu bar
+ * Singleton
  *
  * @author Bauke
  */
@@ -22,11 +22,17 @@ public class Canvas extends JPanel {
     public static Canvas getInstance() {
         return singleton;
     }
-
+/**
+ *  Sets the canvas state. Determines the funcitons to call when clicking across the canvas
+ * @param newname New state
+ */
     public void setState(String newname) {
         this.state = newname;
     }
-
+/**
+ * Returns the state 
+ * @return 
+ */
     public String getState() {
         return state;
     }
