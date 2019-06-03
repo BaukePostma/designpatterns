@@ -35,14 +35,21 @@ public class SaveVisitor implements Visitor{
     @Override
     public void visit(baseShape shape) {
 
-          pw.println(
-                    shape.type + " "
-                    + shape.x + " "
-                    + shape.y + " "
-                    + shape.width + " "
-                    + shape.height + " "
-            );
-    
+        String type = new String();
+        if (shape.DrawStrategy instanceof RectangleStrategy) {
+            type = "rectangle";
+        } else {
+            type = "ellipse";
+        }
+
+        pw.println(
+                type + " "
+                + shape.x + " "
+                + shape.y + " "
+                + shape.width + " "
+                + shape.height + " "
+        );
+
     }
     
     
