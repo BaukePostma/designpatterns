@@ -11,32 +11,31 @@ import java.util.ArrayList;
 /**
  * Abstract base class for all shapes
  *
- * @author Bauke
+ * @author Bauke & Demi
  *
  */
-// 
 public class baseShape implements IComposite {
-    // TODO add getters setters
-
     int x, y, width, height;
     IDrawStrategy DrawStrategy;
     boolean isSelected = false;
     String type;
-
+    
+    //constructor, initializing vars
     public baseShape(int x, int y, int width, int height, IDrawStrategy strat) {
-        
-       this.x = x;
+        this.x = x;
         this.y = y;
         this.height = height;
         this.width = width;
         this.DrawStrategy = strat;
     }
 
+    //accept function from visitor
+    @Override
     public void Accept(Visitor visitor) {
         visitor.visit(this);
     }
 
-    //Sets a minimum shape for every shape, to make sure it's still visible
+    //sets a minimum shape for every shape, to make sure it's still visible
     public void SetMinSize() {
         if (this.width < 0) {
             this.width = 5;
@@ -46,32 +45,25 @@ public class baseShape implements IComposite {
         }
     }
 
+    //overrided select function
+    @Override
     public boolean isSelected() {
         return this.isSelected;
     }
 
+    //overrides draw function
+    @Override
     public void Draw(Graphics g) {
         this.DrawStrategy.Draw(g, x, y, width, height);
     }
 
+    //function for getting selected shapes and adding them to a list
     @Override
     public ArrayList<IComposite> getSelected() {
-           ArrayList<IComposite> selected = new ArrayList<IComposite>();
+        ArrayList<IComposite> selected = new ArrayList<>();
         if (isSelected) {
-         selected.add(this);
+            selected.add(this);
         }
-           return selected;
-      //  throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selected;
     }
-
-    /**
-     * Takes mouse coordinates, turns them into shape variables
-     *
-     * @param xpos
-     * @param ypos
-     * @param xend
-     * @param yend
-     * @return
-     */
-
 }

@@ -8,8 +8,9 @@ package designPatterns;
 import java.awt.Graphics;
 
 /**
+ * Strategy pattern, making draw usable for all shapes / groups
  *
- * @author Bauke
+ * @author Bauke & Demi
  */
 public interface IDrawStrategy {
 
@@ -17,6 +18,5 @@ public interface IDrawStrategy {
 
     @Override
     public String toString();
-
 
 }

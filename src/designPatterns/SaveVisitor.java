@@ -8,28 +8,37 @@ package designPatterns;
 import java.io.PrintWriter;
 
 /**
+ * Visitor pattern for saving
  *
- * @author Bauke
+ * @author Bauke & Demi
  */
-public class SaveVisitor implements Visitor{
+public class SaveVisitor implements Visitor {
+
+    //vars
     PrintWriter pw;
     String tabstring;
-    public SaveVisitor(PrintWriter pw){
-        this.pw=pw;
-        this.tabstring ="";
+
+    //constructor, initializing vars
+    public SaveVisitor(PrintWriter pw) {
+        this.pw = pw;
+        this.tabstring = "";
     }
 
+    //visitor function to print number of shapes and return them
+    //also 
     @Override
     public void visit(Group group) {
-     
+
         pw.println("group " + getConcreteShapeCount(group));
         tabstring = tabstring + "\t";
-          for (IComposite shape : group.childshapes) {
-              pw.print(tabstring);
-                 shape.Accept(this);
-           
-        }
-    
+        group.childshapes.stream().map((shape) -> {
+            pw.print(tabstring);
+            return shape;
+        }).forEachOrdered((shape) -> {
+            //passing shape 
+            shape.Accept(this);
+        });
+
     }
 
     @Override
@@ -51,18 +60,17 @@ public class SaveVisitor implements Visitor{
         );
 
     }
-    
-    
-    private int getConcreteShapeCount(Group comp){
-        int compcount =0;
-        
-        for(IComposite item : comp.childshapes){
-        if(item instanceof baseShape){
-            compcount++;
+
+    //function to get the amount of shapes in a group
+    private int getConcreteShapeCount(Group comp) {
+        int compcount = 0;
+
+        for (IComposite item : comp.childshapes) {
+            if (item instanceof baseShape) {
+                compcount++;
+            }
         }
-        }
-        
         return compcount;
     }
-    
+
 }

@@ -6,52 +6,50 @@
 package designPatterns;
 
 /**
- * Handles the toggleing of the select boolean of the various groups and shapes
- * @author Bauke
+ * Handles the toggling of the select boolean of the various groups and shapes
+ *
+ * @author Bauke & Demi
  */
-public class SelectVisitor implements Visitor{
+public class SelectVisitor implements Visitor {
+    //vars
     int MouseX;
     int MouseY;
-    
-   
-    public SelectVisitor(int xpos ,int ypos){
+
+    //constructor, intitializing vars
+    public SelectVisitor(int xpos, int ypos) {
         this.MouseX = xpos;
         this.MouseY = ypos;
     }
+
+    //function for passing shape to visitor
     @Override
-    /**
-     * 
-     */
     public void visit(Group group) {
-        
-     
-       // group.isSelected = false;
-   //    group.isSelected = !group.isSelected;
-   
-        for (IComposite shape:group.childshapes){
+        for (IComposite shape : group.childshapes) {
             boolean orginalselectionstate = shape.isSelected();
-            
+
             shape.Accept(this);
+            
             if (shape.isSelected() != orginalselectionstate) {
-                // The shaoe selection has been toggled. Toggle this group as well
-              group.isSelected = !group.isSelected;
+                //the shape selection has been toggled, toggle this group as well
+                group.isSelected = !group.isSelected;
             }
         }
-        
-        System.out.println("Group status: "+ group.isSelected);
-        
+
+        System.out.println("Group status: " + group.isSelected + "\n");
+
     }
 
+    //function for setting shape to not selected if mouse is clicked elsewhere
     @Override
     public void visit(baseShape shape) {
-      if (pointCheck(MouseX, MouseY, shape)){
-          shape.isSelected = ! shape.isSelected;
-      }
+        if (pointCheck(MouseX, MouseY, shape)) {
+            shape.isSelected = !shape.isSelected;
+        }
     }
-    
-        /**
-     * Check if a  mouse coordinate falls within the boundaries of a shape.
-     * Used for selecting
+
+    /**
+     * Check if a mouse coordinate falls within the boundaries of a shape. Used
+     * for selecting
      */
     boolean pointCheck(int mouseX, int mouseY, baseShape testshape) {
 
@@ -62,6 +60,4 @@ public class SelectVisitor implements Visitor{
         }
         return false;
     }
-
-    
 }

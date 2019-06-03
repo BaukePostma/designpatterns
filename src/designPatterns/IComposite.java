@@ -11,15 +11,19 @@ import java.util.ArrayList;
 /**
  * Composite pattern interface.
  *
- * @author Bauke
+ * @author Bauke & Demi
  */
 public interface IComposite {
-public void Draw(Graphics g);
+
+    public void Draw(Graphics g);
 
     public ArrayList<IComposite> getSelected();
 
+    // accept() is passed the same visitor object
+    // but then the method visit() is called using
+    // the visitor object. The right version of visit()
+    // is called because of method overloading
     void Accept(Visitor visitor);
-    
 
     boolean isSelected();
 

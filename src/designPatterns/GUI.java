@@ -10,17 +10,16 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 /**
- *  Essentially the new main class. 
- * @author Bauke
+ * Essentially the new main class.
+ *
+ * @author Bauke & Demi
  */
 public class GUI {
-    
-   
-   Invoker invoker = new Invoker();
-   
+    //creating invoker object
+    Invoker invoker = new Invoker();
 
-    
-    Canvas mainCanvas =  Canvas.getInstance();
+    //creating the canvas and the menu objects
+    Canvas mainCanvas = Canvas.getInstance();
     JFrame frame = new JFrame("PaintPlus");
     JMenuBar mb = new JMenuBar();
     JMenu m1 = new JMenu("Rectangle");
@@ -42,6 +41,7 @@ public class GUI {
     JMenuItem action9 = new JMenuItem("Undo");
     JMenuItem action10 = new JMenuItem("Redo");
 
+    //constructor, initializing vars, adding menu items to menubar, designing frame
     public GUI(int height, int width) {
         // Create the main frame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +68,8 @@ public class GUI {
         m7.add(action8);
         m8.add(action9);
         m8.add(action10);
-        //Add handlers to the buttons to process events
+        
+        //ddd handlers to the buttons to process events
         action1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,230 +87,169 @@ public class GUI {
         action3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action3 performed");
+                System.out.print("Select Button Clicked\n");
                 mainCanvas.setState("select");
             }
         });
         action4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action4 performed");
-              //  mainCanvas.setState("group");
-              
-              //Testshape
-                 // baseShape q = drawShape("rectangle", 50, 50, 50, 50);
-                  //ArrayList<IComposite> AddTo= new ArrayList<IComposite>(); 
-                  //AddTo.add(q);
-                  
-                    //  CommandRectangle commandR = new CommandRectangle(mainCanvas.shapeList,q);
-                      //invoker.AddAction(commandR);
-                      
-               ArrayList<IComposite> AddTo = mainCanvas.shapeList.getSelected();
-              CommandGroup command = new CommandGroup(mainCanvas.shapeList,AddTo);
-              invoker.AddAction(command);
-              mainCanvas.repaint();
-               
+                System.out.print("Group Button Clicked\n");
                 
+                //add selected shapes to the shapeList, repaint canvas
+                ArrayList<IComposite> AddTo = mainCanvas.shapeList.getSelected();
+                CommandGroup command = new CommandGroup(mainCanvas.shapeList, AddTo);
+                invoker.AddAction(command);
+                mainCanvas.repaint();
             }
-
         });
+        
         action5.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action5 performed");
+                System.out.print("Drag Button Clicked\n");
                 mainCanvas.setState("drag");
-                //    System.out.println(mainCanvas.getState());
             }
-
         });
+        
         action6.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action6 performed");
+                System.out.print("Scale Button Clicked\n");
                 mainCanvas.setState("scale");
-                //    System.out.println(mainCanvas.getState());
             }
-
         });
+        
         action7.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action7 performed");
+                System.out.print("Save Button Clicked\n");
                 Saver q = new Saver();
+                //when clicked, save the current state of the canvas to a text file
                 try {
                     q.Save(mainCanvas.shapeList, "Testsave.txt");
                 } catch (IOException ex) {
                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                //artistic choice, doesn't mean anything
                 mainCanvas.setState("drag");
-                //    System.out.println(mainCanvas.getState());
             }
-
         });
+        
         action8.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Action8 performed");
+                System.out.print("Load Button Clicked\n");
                 Saver q = new Saver();
                 try {
-                    // mainCanvas.shapeList = null;
                     mainCanvas.shapeList = q.Load("Testsave.txt");
+                    mainCanvas.revalidate();
                     mainCanvas.repaint();
-                    //Load
                 } catch (IOException ex) {
                     Logger.getLogger(GUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-
         });
+        
         action9.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.print("Undo Clicked+\n");
+                //when clicked, call undo function from invoker object
+                System.out.print("Undo Clicked\n");
                 invoker.UndoAction();
             }
         });
+        
         action10.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.print("Redo Clicked\n");
-                // Check if there is anything left to redo
-              invoker.DoAction();
- 
-
+                //check if there is anything left to redo
+                //when clicked, call redo function from invoker object
+                invoker.DoAction();
             }
         });
 
-        // Add a mouselistener to the canvas to listen to click events
+        //ddd a mouselistener to the canvas to listen to click events
         mainCanvas.addMouseListener(new MouseAdapter() {
             boolean mouseDown = true;
-            // Store Mousepress values
+            //store mousepress values
             int xpos = 0;
             int ypos = 0;
-            //Store mouserelease values
+            
+            //store mouserelease values
             int xend = 0;
             int yend = 0;
-// What actions to take for different events
-
+            
+            //what actions to take for different events
             @Override
             public void mousePressed(MouseEvent e) {
                 mouseDown = true;
-                // Get mouse X and Y
+                //get mouse X and Y
                 xpos = e.getX();
                 ypos = e.getY();
 
-                if (mainCanvas.getState() == "select") {
-                    //Loop over every element in the shapelist
-//                    for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
-//                        if (pointCheck(xpos, ypos, mainCanvas.shapeList.get(i))) {
-//                            //  mainCanvas.shapeList.get(i).isSelected = true;
-//                            mainCanvas.shapeList.get(i).toggleSelection();
-//                            System.out.println("Shape" + i + " is set to " + mainCanvas.shapeList.get(i).isSelected);
-//                        }
-//                    }
-                    
-                    //NEW
-                   SelectVisitor visitor = new SelectVisitor(xpos,ypos);
-                  mainCanvas.shapeList.Accept(visitor);
-                    
-                } else if (mainCanvas.getState() == "drag") {
+                //is select is clicked, call select visitor
+                if ("select".equals(mainCanvas.getState())) {
+                    SelectVisitor visitor = new SelectVisitor(xpos, ypos);
+                    mainCanvas.shapeList.Accept(visitor);
+                } 
+                //is drag clicked, call drag visitor
+                else if ("drag".equals(mainCanvas.getState())) {
                     System.out.print("Drag state = true");
                 }
+                //repaint canvas after action is performed
                 mainCanvas.repaint();
             }
 
+            //when mouse is released, stuff should happen
             @Override
             public void mouseReleased(MouseEvent e) {
                 mouseDown = false;
                 xend = e.getX();
                 yend = e.getY();
-                if (mainCanvas.getState() == "rectangle") {
-                    //ClearHistory(undocount);
-                    //baseShape q = drawShape("rectangle", xpos, ypos, xend, yend);
-                    //baseShape q = new baseShape
-                    invoker.AddAction(new CommandRectangle(mainCanvas.shapeList, xpos,ypos,xend,yend));
-                   
-                   // CommandHistory.add(command);
-                    //command.Execute();
+                
+                //if mouse was released on a rectangle, check x/y vals
+                if (null != mainCanvas.getState()) switch (mainCanvas.getState()) {
+                    case "rectangle":
+                        invoker.AddAction(new CommandRectangle(mainCanvas.shapeList, xpos, ypos, xend, yend));
+                        break;
                     
-                } else if (mainCanvas.getState() == "circle") {
-                     //Cl//earHistory(undocount);
-                    //baseShape q = drawShape("circle",xpos,ypos,xend,yend);
-                    invoker.AddAction(new CommandElipse(mainCanvas.shapeList, xpos,ypos,xend,yend));
-                    //CommandElipse command  = );
-                   // CommandHistory.add(command);
-                   // command.Execute();
-                   //drawShape("circle", xpos, ypos, xend, yend);
-
-                } else if (mainCanvas.getState() == "drag") {
-               //      ClearHistory(undocount);
-                    int xdiff = xend - xpos;
-                    int ydiff = yend - ypos;
-                    //startDrag(xdiff, ydiff);
-                   
-                    invoker.AddAction(new CommandDrag(mainCanvas.shapeList,xdiff,ydiff));
-                   // CommandDrag command = new CommandDrag(getSelected(),xdiff,ydiff);
-                    //CommandHistory.add(command);
-               //     command.Execute();
-;
-
-                } else if (mainCanvas.getState() == "scale") {
-                    int xdiff = xend - xpos;
-                    int ydiff = yend - ypos;
-                    //scaleShape(xpos, xend, ypos, yend);
-                    invoker.AddAction(new CommandScale(mainCanvas.shapeList,xpos,xend,ypos,yend));
-                   // CommandScale command = new CommandScale(getSelected(),xpos,xend,ypos,yend);
-                  //  CommandHistory.add(command);
-                    //command.Execute();
+                    //if mouse was released on a ellipse, check x/y vals
+                    case "circle":
+                        invoker.AddAction(new CommandElipse(mainCanvas.shapeList, xpos, ypos, xend, yend));
+                        break;
+                        
+                    //if mouse was released after dragging, check invoker action and change pos of shape
+                    case "drag":{
+                        int xdiff = xend - xpos;
+                        int ydiff = yend - ypos;
+                        
+                        invoker.AddAction(new CommandDrag(mainCanvas.shapeList, xdiff, ydiff));
+                        break;
+                        }
+                    
+                    //if mouse was released after scaling, check invoker action and change size of shape
+                    case "scale":{
+                        int xdiff = xend - xpos;
+                        int ydiff = yend - ypos;
+                        invoker.AddAction(new CommandScale(mainCanvas.shapeList, xpos, xend, ypos, yend));
+                            break;
+                        }
+                    default:
+                        break;
                 }
-                //Forces the canvas to update
+                //forces the canvas to update
                 mainCanvas.repaint();
             }
         });
 
+        //repaint the canvas when the mouse moved
         mainCanvas.addMouseMotionListener(new MouseAdapter() {
             @Override
             public void mouseMoved(MouseEvent e) {
                 mainCanvas.repaint();
-                //System.out.print("Mouse moved");
             }
         });
     }
-
-    //Gets called from a mouse-drag. Calls the scale function of individual componenets
-//    public void scaleShape(int xstart, int xend, int ystart, int yend) {
-//
-//        ArrayList<baseShape> scaled = getSelected();
-//        for (baseShape shape : scaled) {
-//            shape.Rescale(xstart, xend, ystart, yend);
-//        }
-//    }
-
-    // Moves selected shapes by the mouse offset
-//    void startDrag(int x, int y) {
-//        // Keep track of all the selected 
-//        ArrayList<baseShape> dragged = getSelected();
-//        for (baseShape shape : dragged) {
-//            System.out.println("Old " + shape.x);
-//            shape.x += x;
-//            shape.y += y;
-//            System.out.println("New  " + shape.x);
-//        }
-//        mainCanvas.repaint();
-//    }
-
-    // Gets all the selected shapes
-//    ArrayList<baseShape> getSelected() {
-//        ArrayList<baseShape> movelist = new ArrayList();
-////        for (int i = 0; i < mainCanvas.shapeList.size(); i++) {
-////            if (mainCanvas.shapeList.get(i).isSelected) {
-////                movelist.add(mainCanvas.shapeList.get(i));
-////
-////            }
-////        }
-//        GetSelectedVisitor visitor = new GetSelectedVisitor();
-//        mainCanvas.shapeList.Accept(visitor);
-//        return movelist;
-//    }
-
 }

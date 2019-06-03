@@ -7,11 +7,14 @@ package designPatterns;
 
 /**
  * Base visitor interface
- * @author Bauke
+ *
+ * @author Bauke & Demi
  */
 public interface Visitor {
-    
+
+    //creating instances that can be edited using the visitor pattern
     public void visit(Group group);
+
     public void visit(baseShape shape);
-    
+
 }

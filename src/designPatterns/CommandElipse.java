@@ -5,64 +5,78 @@ import java.util.ArrayList;
 /**
  * Command pattern for drawing elipses
  *
- * @author Bauke
+ * @author Bauke & Demi
  */
-public class CommandElipse implements ICommand {
+public final class CommandElipse implements ICommand {
 
+    //list of shapes, setting the shapes to empty, creating vars for coördinates and size
     Group shapelist;
     baseShape shape = null;
     int x, y, width, height = 0;
 
     /**
      * @param shapelist A reference to the big list of shapes
-     * @param q Shape to add to the list
+     * @param xpos position on x-axis
+     * @param ypos position on y-axis
+     * @param xend ending pos of x-axis
+     * @param yend ending pos of y-axis
      */
-    public CommandElipse(Group shapelist,int xpos,int ypos,int xend, int yend) {
-        //Hopefully store a reference to the canvas so we can acces the shapelist
+    public CommandElipse(Group shapelist, int xpos, int ypos, int xend, int yend) {
+        //hopefully store a reference to the canvas so we can access the shapelist
         this.shapelist = shapelist;
-                this.x = xpos;
+        this.x = xpos;
         this.y = ypos;
-       // this.shape = q;
-      //  this.x = x;
-      //  this.y = y;
-     //   this.width = width;
-      //  this.height = height;
-      CalculateShape(xpos ,ypos ,xend ,yend );
-    
-      
-      this.shape = new baseShape(x,y,width,height,ElipseStrategy.GetInstance());
+        
+        CalculateShape(xpos, ypos, xend, yend);
+
+        this.shape = new baseShape(x, y, width, height, ElipseStrategy.GetInstance());
     }
 
+    //making shape in shapelist drawable
     @Override
     public void Execute() {
         this.shapelist.AddShape(shape);
     }
 
+    //making shape in shapelist removable
     @Override
     public void Undo() {
         shapelist.RemoveShape(shape);
     }
-     void CalculateShape(int xpos, int ypos, int xend, int yend) {
 
+    //function to calculate the size of elipse
+    void CalculateShape(int xpos, int ypos, int xend, int yend) {
+
+        //width is the beginning of x-axis minus end of x-axis
+        //height is the beginning of y-axis mines end of y-axis
         width = xend - xpos;
         height = yend - ypos;
-        // Draai width & height om zodat ze altijd positief zijn
+        
+        //if width / height are negative vals, make them positive so position is right
         if (width < 0) {
             width = width * -1;
         }
         if (height < 0) {
             height = height * -1;
         }
+        
         int lowestX;
+        //if beginning of x is smaller than ending
         if (xpos < xend) {
+            //set lowest x value to the beginning
             lowestX = xpos;
         } else {
+            //else, lowest x value is the ending of x
             lowestX = xend;
         }
+        
         int lowestY;
+        //if beginning of y is smaller than ending
         if (ypos < yend) {
+            //set lowest y value to the beginning
             lowestY = ypos;
         } else {
+            //else, lowest y value is the ending of y
             lowestY = yend;
         }
     }
