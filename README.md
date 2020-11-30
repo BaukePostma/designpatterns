@@ -1,12 +1,11 @@
-# Design Patterns Huiswerk
+# Design Patterns Homework
 
-Huiswekopgave voor Jaar 2 periode 3 HBO-ICT. Het doel van de opgave was om een tekenprogramma te schrijven dat een aantal Design Patterns implementeert.
+A homework assignment made in the third period of my second year. The aim of the assignment was to create a simple drawing program that incorporates a number of commonly used design patterns. Below is a list of the implemented patterns.
+
 
 ```
 Strategy Pattern
 Composite Pattern
 Visitor Pattern
 Singleton Pattern
-Decorator Pattern
 ```
-Helaas is het niet gelukt om de laatste er op tijd in te zetten. Desondanks was het een extreem leerzame taak
